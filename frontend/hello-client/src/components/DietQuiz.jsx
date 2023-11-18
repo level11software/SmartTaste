@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import DietPyramid from "./DietPyramid.jsx";
 
-const DietPyramidPage = () => {
+const DietPyramidPage = ({onContinue}) => {
     const [diet, setDiet] = useState(null);
 
-    const handleContinue = () => {
-        // Handle the continue action here
-        console.log('Selected Diet:', diet);
-        // For example, navigate to the next page or process the selected diet
-    };
 
     return (
         <div className="flex flex-col h-screen justify-between">
@@ -21,7 +16,7 @@ const DietPyramidPage = () => {
             <div className="p-4 text-right">
                 <button
                     className="bg-primary text-white py-2 px-6 rounded-md flex items-center justify-center hover:bg-accent transition-colors"
-                    onClick={handleContinue}
+                    onClick={onContinue}
                 >
                     <span>Continue</span>
                     <svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">

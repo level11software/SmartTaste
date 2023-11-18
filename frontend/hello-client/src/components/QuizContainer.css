@@ -1,0 +1,22 @@
+.quiz-container {
+    /* Your existing styles */
+    position: relative;
+}
+
+.quiz-animation-enter {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}
+
+.quiz-animation-enter-active {
+    opacity: 1;
+}
+
+.quiz-animation-exit {
+    opacity: 1;
+}
+
+.quiz-animation-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}

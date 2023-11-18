@@ -6,6 +6,7 @@ import recipesData from '../assets/db_16.json';
 import DietPyramid from "../components/DietPyramid.jsx";
 import DietQuiz from "../components/DietQuiz.jsx";
 import IngredientsQuiz from "../components/IngredientsQuiz.jsx";
+import QuizContainer from "../components/QuizContainer.jsx";
 
 function QuizPage() {
   const userCode = useRef(-1);
@@ -27,7 +28,7 @@ function QuizPage() {
   return (
     <>
       {/*A list of recipes*/}
-      <IngredientsQuiz />
+      <QuizContainer />
     </>
   );
 }

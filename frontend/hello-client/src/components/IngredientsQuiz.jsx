@@ -54,9 +54,7 @@ const IngredientsQuiz = () => {
                     onClick={handleContinue}
                 >
                     <span>Continue</span>
-                    <svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
+                    <i className="fa-solid fa-angles-right pl-5"></i>
                 </button>
             </div>
         </div>
