@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 function AniSium() {
   const [animation, setAnimation] = useState([]);
   const [element, setElements] = useState([]);
+  const elRef = useRef(null);
 
   useEffect(() => {
     setElements([1, 2, 3]);
@@ -12,6 +13,7 @@ function AniSium() {
   }, []);
 
   const borderPixel = 20;
+  const durationSec = 1;
 
   function handleAnimation(index, ani) {
     let flag = false;
@@ -21,20 +23,37 @@ function AniSium() {
         return ani;
       } else if (flag) {
         return {
-          y: "-70px",
+          y: -elRef.current.offsetHeight,
           transition: { duration: 1, ease: "easeInOut" },
         };
       } else return el;
     });
 
     setAnimation(new_animation);
+    setTimeout(() => {
+      setAnimation(
+        animation.filter((el, i) => {
+          return i != index;
+        })
+      );
+      setElements(
+        element.filter((el, i) => {
+          return i != index;
+        })
+      );
+    }, durationSec * 1500);
   }
+  console.log(element);
 
   return (
-    <div className="flex flex-col items-center gap-5 m-5">
+    <div
+      className="flex flex-col items-center gap-5 m-5"
+      style={{ height: "800px" }}
+    >
       {element.map((item, index) => {
         return (
           <motion.div
+            key={item}
             drag="x"
             dragSnapToOrigin
             onDragEnd={(event, info) => {
@@ -53,7 +72,9 @@ function AniSium() {
             }}
             animate={animation[index]}
           >
-            <div className="h-52 w-52 bg-black">ciao</div>
+            <div ref={elRef} className="h-52 w-52 bg-black">
+              ciao
+            </div>
           </motion.div>
         );
       })}
