@@ -164,3 +164,70 @@ def get_recipes_from_json():
         return f"Error decoding JSON: {str(e)}"
     except Exception as e:
         return f"An error occurred: {str(e)}"
+
+
+@app.get("/upload_recipes")
+async def upload_recipes(token: str = Depends(get_current_token)):
+    """
+    Upload recipes to the database
+    :param token: the token of the user
+    :return: a message
+    """
+    # TODO REAL CODE
+    recipes = get_recipes_from_json()
+    return upload_recipes_to_db(recipes)
+
+
+def upload_recipes_to_db(recipes):
+    """
+    Upload recipes to the database
+    :param recipes: a list of recipes
+    :return: a message
+    """
+    # TODO REAL CODE
+    for element in recipes:
+        recipe = element['recipe']
+        print(recipe)
+
+        with Session(engine) as session:
+            new_recipe_object = Recipe(
+                uuid=recipe['id'],
+                name=recipe['name'],
+                preptime=recipe['prepTime'],
+                image_link=recipe['image'],
+                recipe_link=recipe['websiteURL'],
+                headline=recipe['headline'],
+                nutrition_energy=recipe['nutrition']['energy'],
+                nutrition_calories=recipe['nutrition']['calories'],
+                nutrition_carbo=recipe['nutrition']['carbohydrate'],
+                nutrition_protein=recipe['nutrition']['protein']
+            )
+
+            stored_tags = session.query(Tag).all()
+
+            loaded_tags = recipe['tags']
+            for loaded_tag in loaded_tags:
+                found = False
+                for stored_tag in stored_tags:
+                    if loaded_tag['name'] == stored_tag.name:
+                        found = True
+                        break
+
+                if not found:
+                    new_tag_object = Tag(name=loaded_tag['name'])
+                    session.add(new_tag_object)
+                    session.commit()
+                    stored_tags.append(new_tag_object)
+
+            stored_tags = session.query(Tag).all()
+
+            for loaded_tag in loaded_tags:
+                for stored_tag in stored_tags:
+                    if loaded_tag['name'] == stored_tag.name:
+                        new_recipe_object.tags.append(stored_tag)
+                        break
+
+            session.add(new_recipe_object)
+            session.commit()
+
+    return "Recipes uploaded"
