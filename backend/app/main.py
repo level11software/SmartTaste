@@ -120,9 +120,9 @@ async def homepage(token: str = Depends(get_current_token)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    json_data = json.dumps(get_recommended_recipes(user))
+    json_data = get_recommended_recipes(user)
 
-    return json_data
+    return JSONResponse(content=json_data, status_code=200)
 
 
 # def internal function that return the recipes most recommended for the user
