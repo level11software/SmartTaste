@@ -1,8 +1,6 @@
 # IMPORTS
-import email
-import uuid
-from email.header import decode_header, make_header
-from email.utils import parseaddr
+import random
+import json
 
 import databases
 import requests
@@ -20,6 +18,7 @@ from sqlalchemy.sql import select
 from app.env_config import (
     REL_DATABASE_URL,
     THIS_SERVER_URL,
+    NUMBER_OF_MEALS,
 )
 # MODELS
 from db.models.base import *
@@ -106,3 +105,62 @@ async def say_hello(token: str = Depends(get_current_token)):
         return {"message": f"Hello {user['user_name']}"}
     else:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+# define homepage endpoint, restricted to GET with a valid token
+@app.get("/homepage")
+async def homepage(token: str = Depends(get_current_token)):
+    """
+    The homepage endpoint, only accessible with a valid token
+    :param token: the token of the user
+    :return:  a message
+    """
+
+    user = await get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    json_data = json.dumps(get_recommended_recipes(user))
+
+    return json_data
+
+
+# def internal function that return the recipes most recommended for the user
+def get_recommended_recipes(user: User):
+    """
+    Get the four recipes most recommended for the user
+    :param user: the user object
+    :return: a list of four recipes
+    """
+
+    recipes = get_recipes_from_json()
+    # TODO REAL CODE
+
+    return recipes
+
+
+# def function that read a json and return a list of recipes
+def get_recipes_from_json():
+    """
+    Get a list of recipes from a json
+    :param json: the json
+    :return: a list of recipes
+    """
+
+    file_path = "recipes.json"
+    try:
+        with open(file_path, 'r') as json_file:
+            data = json.load(json_file)
+            index = 0
+            recipes = []
+            while len(recipes) < NUMBER_OF_MEALS:
+                if random.random() < 0.5:
+                    recipes.append(data[index])
+                index += 1
+            return recipes
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError as e:
+        return f"Error decoding JSON: {str(e)}"
+    except Exception as e:
+        return f"An error occurred: {str(e)}"

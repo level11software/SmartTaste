@@ -1,0 +1,408 @@
+[
+   {
+      "index":1,
+      "recipe":{
+         "id":"64fed0d332e9107c6db8b507",
+         "name":"Harissa chicken on quinoa with green olives",
+         "headline":"This dish produces 50% less CO2e from ingredients than an average HelloFresh recipe",
+         "prepTime":"PT25M",
+         "image":"https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R37_W44_DE_R4819-1_Main_low-661e95c9.jpg",
+         "websiteURL":"https://www.hellofresh.de/recipes/harissa-hahnchen-auf-quinoa-mit-grunen-oliven-64fed0d332e9107c6db8b507",
+         "tags":[
+            {
+               "name":"High Protein"
+            },
+            {
+               "name":"Under 650 Calories"
+            }
+         ],
+         "nutrition":{
+            "energy":2534,
+            "calories":606,
+            "carbohydrate":52.4,
+            "protein":38.4
+         }
+      }
+   },
+   {
+      "index":2,
+      "recipe":{
+         "id":"64df2a75552e10127649f25f",
+         "name":"Balsamic lentil salad with chicken breast",
+         "headline":"Avocado and plum dressing",
+         "prepTime":"PT25M",
+         "image":"https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R38_W36_DE_R4737-1_Main_low-127700d5.jpg",
+         "websiteURL":"https://www.hellofresh.de/recipes/balsamico-linsen-salat-mit-hahnchenbrust-64df2a75552e10127649f25f",
+         "tags":[
+            {
+               "name":"High Protein"
+            },
+            {
+               "name":"Gluten Free"
+            },
+            {
+               "name":"Low Carb"
+            }
+         ],
+         "nutrition":{
+            "energy":2273,
+            "calories":543,
+            "carbohydrate":26.1,
+            "protein":41.6
+         }
+      }
+   },
+   {
+      "index":3,
+      "recipe":{
+         "id":"64e8611440ec4203972faf1b",
+         "name":"Perlencouscous-salat with red beet and parsnip chips",
+         "headline":"This dish produces 50% less CO2e from ingredients than an average HelloFresh recipe",
+         "prepTime":"PT35M",
+         "image":"https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg",
+         "websiteURL":"https://www.hellofresh.de/recipes/perlencouscous-salat-mit-rote-beete-and-pastinakenchips-64e8611440ec4203972faf1b",
+         "tags":[
+            {
+               "name":"Vegetarian"
+            },
+            {
+               "name":"Extra Vegatables"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":3663,
+            "calories":875,
+            "carbohydrate":83.4,
+            "protein":18
+         }
+      }
+   },
+   {
+      "index":4,
+      "recipe":{
+         "id":"650cf87e8a3b8913e8a4c82d",
+         "name":"Spicy Thai Basil Chicken",
+         "headline":"Deliciously hot and ready in 20 minutes",
+         "prepTime":"PT20M",
+         "image":"https://example.com/images/thai-basil-chicken.jpg",
+         "websiteURL":"https://www.example.com/recipes/spicy-thai-basil-chicken-650cf87e8a3b8913e8a4c82d",
+         "tags":[
+            {
+               "name":"Quick & Easy"
+            },
+            {
+               "name":"High Protein"
+            }
+         ],
+         "nutrition":{
+            "energy":1890,
+            "calories":452,
+            "carbohydrate":34.2,
+            "protein":36.7
+         }
+      }
+   },
+   {
+      "index":5,
+      "recipe":{
+         "id":"6510fd9b56a78903f9d5e8b4",
+         "name":"Mushroom Risotto with Parmesan Crisps",
+         "headline":"Creamy Italian classic with a crunchy twist",
+         "prepTime":"PT30M",
+         "image":"https://example.com/images/mushroom-risotto.jpg",
+         "websiteURL":"https://www.example.com/recipes/mushroom-risotto-6510fd9b56a78903f9d5e8b4",
+         "tags":[
+            {
+               "name":"Vegetarian"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":3031,
+            "calories":724,
+            "carbohydrate":85.3,
+            "protein":19.8
+         }
+      }
+   },
+   {
+      "index":6,
+      "recipe":{
+         "id":"651ab1c2de90f104d9b2c30f",
+         "name":"Schnitzel with Warm Potato Salad",
+         "headline":"A German classic, perfect for a hearty dinner",
+         "prepTime":"PT45M",
+         "image":"https://example.com/images/schnitzel-potato-salad.jpg",
+         "websiteURL":"https://www.example.com/recipes/schnitzel-potato-salad-651ab1c2de90f104d9b2c30f",
+         "tags":[
+            {
+               "name":"Meat & Veggies"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":3890,
+            "calories":930,
+            "carbohydrate":65.4,
+            "protein":47.2
+         }
+      }
+   },
+   {
+      "index":7,
+      "recipe":{
+         "id":"65234bcf890ad107f1d4e9a6",
+         "name":"Grilled Salmon with Lemon-Dill Sauce",
+         "headline":"Light and refreshing, ideal for a summer dinner",
+         "prepTime":"PT30M",
+         "image":"https://example.com/images/grilled-salmon-lemon-dill.jpg",
+         "websiteURL":"https://www.example.com/recipes/grilled-salmon-lemon-dill-65234bcf890ad107f1d4e9a6",
+         "tags":[
+            {
+               "name":"Pescatarian"
+            },
+            {
+               "name":"High Protein"
+            }
+         ],
+         "nutrition":{
+            "energy":2134,
+            "calories":510,
+            "carbohydrate":12.6,
+            "protein":44.3
+         }
+      }
+   },
+   {
+      "index":8,
+      "recipe":{
+         "id":"652be37c9812e10adf3a4b9b",
+         "name":"Vegetable Tagine with Couscous",
+         "headline":"Aromatic Moroccan dish, packed with flavor",
+         "prepTime":"PT50M",
+         "image":"https://example.com/images/vegetable-tagine.jpg",
+         "websiteURL":"https://www.example.com/recipes/vegetable-tagine-couscous-652be37c9812e10adf3a4b9b",
+         "tags":[
+            {
+               "name":"Veggie"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":2760,
+            "calories":660,
+            "carbohydrate":77.9,
+            "protein":14.5
+         }
+      }
+   },
+   {
+      "index":9,
+      "recipe":{
+         "id":"6531efc4abf9d1084b9a2cdd",
+         "name":"Chicken Tikka Masala with Basmati Rice",
+         "headline":"Rich and creamy Indian classic",
+         "prepTime":"PT35M",
+         "image":"https://example.com/images/chicken-tikka-masala.jpg",
+         "websiteURL":"https://www.example.com/recipes/chicken-tikka-masala-6531efc4abf9d1084b9a2cdd",
+         "tags":[
+            {
+               "name":"Meat & Veggies"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":3250,
+            "calories":776,
+            "carbohydrate":65.3,
+            "protein":42
+         }
+      }
+   },
+   {
+      "index":10,
+      "recipe":{
+         "id":"6537fae5d3c2b21fc4e9b8cd",
+         "name":"Japanese Miso Glazed Eggplant",
+         "headline":"Savory and sweet, a vegetarian delight",
+         "prepTime":"PT30M",
+         "image":"https://example.com/images/miso-glazed-eggplant.jpg",
+         "websiteURL":"https://www.example.com/recipes/japanese-miso-glazed-eggplant-6537fae5d3c2b21fc4e9b8cd",
+         "tags":[
+            {
+               "name":"Veggie"
+            },
+            {
+               "name":"Quick & Easy"
+            }
+         ],
+         "nutrition":{
+            "energy":1550,
+            "calories":370,
+            "carbohydrate":47.8,
+            "protein":8.2
+         }
+      }
+   },
+   {
+      "index":11,
+      "recipe":{
+         "id":"6542a8c7dfb3e212f5ae2bcd",
+         "name":"Lamb Kofta with Tzatziki",
+         "headline":"A Greek-inspired dish with a yogurt cucumber sauce",
+         "prepTime":"PT40M",
+         "image":"https://example.com/images/lamb-kofta-tzatziki.jpg",
+         "websiteURL":"https://www.example.com/recipes/lamb-kofta-tzatziki-6542a8c7dfb3e212f5ae2bcd",
+         "tags":[
+            {
+               "name":"Meat & Veggies"
+            },
+            {
+               "name":"High Protein"
+            }
+         ],
+         "nutrition":{
+            "energy":2734,
+            "calories":654,
+            "carbohydrate":38.1,
+            "protein":43.7
+         }
+      }
+   },
+   {
+      "index":12,
+      "recipe":{
+         "id":"6548b1d8efc3e319f6b4cdef",
+         "name":"Quinoa Tabbouleh with Feta",
+         "headline":"A refreshing and light Middle Eastern salad",
+         "prepTime":"PT20M",
+         "image":"https://example.com/images/quinoa-tabbouleh-feta.jpg",
+         "websiteURL":"https://www.example.com/recipes/quinoa-tabbouleh-feta-6548b1d8efc3e319f6b4cdef",
+         "tags":[
+            {
+               "name":"Veggie"
+            },
+            {
+               "name":"Fit & Wholesome"
+            }
+         ],
+         "nutrition":{
+            "energy":1673,
+            "calories":399,
+            "carbohydrate":45.2,
+            "protein":12.6
+         }
+      }
+   },
+   {
+      "index":13,
+      "recipe":{
+         "id":"654f3ba5edc4f421d7c9f0eb",
+         "name":"Seared Tuna with Mango Salsa",
+         "headline":"A tropical twist on a pescatarian favorite",
+         "prepTime":"PT25M",
+         "image":"https://example.com/images/seared-tuna-mango-salsa.jpg",
+         "websiteURL":"https://www.example.com/recipes/seared-tuna-mango-salsa-654f3ba5edc4f421d7c9f0eb",
+         "tags":[
+            {
+               "name":"Pescatarian"
+            },
+            {
+               "name":"Quick & Easy"
+            }
+         ],
+         "nutrition":{
+            "energy":1984,
+            "calories":474,
+            "carbohydrate":30.3,
+            "protein":41.2
+         }
+      }
+   },
+   {
+      "index":14,
+      "recipe":{
+         "id":"6555d4ae6fb4e422e9d0f1fc",
+         "name":"Cherry Clafoutis",
+         "headline":"A French dessert classic, perfect for summer",
+         "prepTime":"PT45M",
+         "image":"https://example.com/images/cherry-clafoutis.jpg",
+         "websiteURL":"https://www.example.com/recipes/cherry-clafoutis-6555d4ae6fb4e422e9d0f1fc",
+         "tags":[
+            {
+               "name":"Vegetarian"
+            },
+            {
+               "name":"Dessert"
+            }
+         ],
+         "nutrition":{
+            "energy":1893,
+            "calories":452,
+            "carbohydrate":55.6,
+            "protein":7.9
+         }
+      }
+   },
+   {
+      "index":15,
+      "recipe":{
+         "id":"655c1f7d7eb5e423fa20f2fd",
+         "name":"Butter Chicken with Garlic Naan",
+         "headline":"A rich and creamy Indian favorite",
+         "prepTime":"PT40M",
+         "image":"https://example.com/images/butter-chicken-garlic-naan.jpg",
+         "websiteURL":"https://www.example.com/recipes/butter-chicken-garlic-naan-655c1f7d7eb5e423fa20f2fd",
+         "tags":[
+            {
+               "name":"Family Friendly"
+            },
+            {
+               "name":"Fit & Wholesome"
+            }
+         ],
+         "nutrition":{
+            "energy":2987,
+            "calories":714,
+            "carbohydrate":52.4,
+            "protein":36.1
+         }
+      }
+   },
+   {
+      "index":16,
+      "recipe":{
+         "id":"65628e9f8fb6e424fb30f3fe",
+         "name":"Spinach and Feta Filo Pie",
+         "headline":"A crispy and savory Greek-inspired dish",
+         "prepTime":"PT50M",
+         "image":"https://example.com/images/spinach-feta-filo-pie.jpg",
+         "websiteURL":"https://www.example.com/recipes/spinach-feta-filo-pie-65628e9f8fb6e424fb30f3fe",
+         "tags":[
+            {
+               "name":"Vegetarian"
+            },
+            {
+               "name":"Family Friendly"
+            }
+         ],
+         "nutrition":{
+            "energy":2430,
+            "calories":580,
+            "carbohydrate":48.6,
+            "protein":22.3
+         }
+      }
+   }
+]
