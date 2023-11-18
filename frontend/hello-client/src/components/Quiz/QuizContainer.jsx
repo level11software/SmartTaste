@@ -6,6 +6,7 @@ import AllergensQuiz from './AllergensQuiz.jsx';
 
 import CarouselQuiz from "./CarouselQuiz.jsx";
 import {useNavigate} from "react-router-dom";
+import FlavorSpectrumQuiz from "./FlavorSpectrumQuiz.jsx";
 
 const QuizContainer = () => {
 
@@ -30,9 +31,9 @@ const QuizContainer = () => {
 
             case 1:
                 return <DietQuiz onContinue={handleContinue}/>;
-            case 2:
-                return <CarouselQuiz onContinue={handleContinue}/>;
             case 3:
+                return <CarouselQuiz onContinue={handleContinue}/>;
+            case 2:
                 return <AllergensQuiz onContinue={handleContinue}/>;
             // ... cases for other quiz components
             default:
