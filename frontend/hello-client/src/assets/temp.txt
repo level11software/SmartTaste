@@ -1,0 +1,27 @@
+            {/* Image container */}
+            <div className="flex-none h-10 w-10 mr-4">
+                <img src={image || defaultImage}
+                     alt={`Recipe for ${name}`}
+                     onError={(e) => { e.target.onerror = null; e.target.src = defaultImage }}
+                     className="rounded-full w-full h-full p-5 object-cover" />
+            </div>
+
+            {/* Content container */}
+            <div className="flex-grow">
+                <h2 className="text-2xl font-bold text-base-content mb-3">{name}</h2>
+                <p className="text-base-content/80 mb-2 font-thin text-sm">{headline}</p>
+
+                <div className="text-gray-700 text-sm font-mono mt-5">
+                    Calories: {nutrition.calories} kcal
+                </div>
+
+                {/* tags */}
+                <div className="flex flex-wrap gap-2 mb-3 mt-10">
+                    {tags.map(tag => (
+                        <span key={tag.name} className="bg-primary text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                            {tag.name}
+                        </span>
+                    ))}
+                </div>
+
+            </div>
