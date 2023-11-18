@@ -27,10 +27,11 @@ const QuizContainer = () => {
 
     const renderQuizComponent = () => {
         switch (currentQuiz) {
+
             case 1:
-                return <CarouselQuiz onContinue={handleContinue}/>;
-            case 2:
                 return <DietQuiz onContinue={handleContinue}/>;
+            case 2:
+                return <CarouselQuiz onContinue={handleContinue}/>;
             case 3:
                 return <IngredientsQuiz onContinue={handleContinue}/>;
             // ... cases for other quiz components
