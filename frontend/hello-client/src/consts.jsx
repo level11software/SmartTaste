@@ -1,5 +1,9 @@
 export const backend_url =
-  "https://cc27-2a09-80c0-192-0-6dcd-f24d-404a-31cc.ngrok-free.app";
+  "https://6ab2-2a09-80c0-192-0-6adc-1104-9b42-c180.ngrok-free.app";
+
+export const OPENED_RECIPE = "opened_recipe";
+export const BOUGHT_RECIPE = "bought_recipe";
+export const DISCARDED_RECIPE = "discarded_recipe";
 
 export async function verifiedGET(endpoint, authToken) {
   const url = `${backend_url}/${endpoint}`;
@@ -18,5 +22,30 @@ export async function verifiedGET(endpoint, authToken) {
   }
 
   const data = await res.json();
+  console.log(data);
   return data;
+}
+
+export async function registerAction(authToken, type, id) {
+  const url = `${backend_url}/send_interaction`;
+
+  const payload = {
+    recipe_id: id,
+    event_type: type,
+  };
+
+  // Use fetch to retrieve the scan status
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "ngrok-skip-browser-warning": "true",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return "ok";
 }

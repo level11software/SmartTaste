@@ -1,16 +1,56 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { verifiedGET } from "../consts";
+import {
+  verifiedGET,
+  registerAction,
+  DISCARDED_RECIPE,
+  BOUGHT_RECIPE,
+  OPENED_RECIPE,
+} from "../consts";
 import Recipe from "../components/Recipe.jsx";
-import recipesData from '../assets/db_16.json';
+import "./animation.css";
+//import recipesData from "../assets/db_16.json";
 
 function HomePage() {
   const userCode = useRef(-1);
   const navigate = useNavigate();
+  const [recipesData, setRecipesData] = useState([]);
+
+  async function removeCard(id) {
+    //request post the removed card
+    registerAction(userCode.current, DISCARDED_RECIPE, id);
+
+    setRecipesData(
+      recipesData.filter((item) => {
+        return item.recipe.id != id;
+      })
+    );
+  }
+
+  async function commitOrder() {
+    const keys = recipesData.map((item) => {
+      return item.recipe.id;
+    });
+
+    keys.map((id) => registerAction(userCode.current, BOUGHT_RECIPE, id));
+  }
+
+  async function commitSave(id) {
+    //registerAction(userCode.current, )
+  }
+
+  async function commitOpened(id) {
+    registerAction(userCode.current, OPENED_RECIPE, id);
+  }
 
   async function getUser() {
     const user = await verifiedGET("hello", userCode.current);
     console.log(user);
+  }
+
+  async function getHomePage() {
+    const home = await verifiedGET("homepage", userCode.current);
+    setRecipesData(home);
   }
 
   useEffect(() => {
@@ -24,16 +64,57 @@ function HomePage() {
     }
 
     // getUser();
+    getHomePage();
   }, []);
 
   return (
     <>
       {/*A list of recipes*/}
-      <div className="overflow-auto p-5" style={{ maxHeight: '80vh' }}>
-        {recipesData.map(item => (
-            <Recipe key={item.recipe.id} recipe={item.recipe} />
+      <div className="overflow-auto p-5" style={{ maxHeight: "80vh" }}>
+        {recipesData.map((item) => (
+          <Recipe
+            key={item.recipe.id}
+            recipe={item.recipe}
+            removal={removeCard}
+            openDetail={commitOpened}
+            savedAction={commitSave}
+          />
         ))}
       </div>
+      <div className="m-3 flex justify-center">
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            document.getElementById("modal_commit_buy").showModal();
+          }}
+        >
+          ORDER
+        </button>
+      </div>
+
+      <dialog id="modal_commit_buy" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Purchase Summary</h3>
+          {recipesData.map((item) => (
+            <p className="py-4">{item.recipe.name}</p>
+          ))}
+
+          <div className="modal-action ">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn mx-5">Close</button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  commitOrder();
+                }}
+              >
+                Confirm
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }

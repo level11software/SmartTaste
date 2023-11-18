@@ -1,0 +1,28 @@
+@keyframes rotate90 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes rotatem90 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
+}
+
+.rotate-on {
+  animation-name: "rotate90";
+  animation-duration: 0.5s;
+  transform: rotate(90deg);
+}
+
+.rotate-off {
+  animation-name: "rotatem90";
+  animation-duration: 0.5s;
+}
