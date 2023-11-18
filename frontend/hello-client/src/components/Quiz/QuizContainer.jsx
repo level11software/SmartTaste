@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Transition} from 'react-transition-group';
 import DietQuiz from './DietQuiz.jsx';
-import IngredientsQuiz from './IngredientsQuiz.jsx';
+import AllergensQuiz from './AllergensQuiz.jsx';
 // ... import other quiz components
 
 import CarouselQuiz from "./CarouselQuiz.jsx";
@@ -33,7 +33,7 @@ const QuizContainer = () => {
             case 2:
                 return <CarouselQuiz onContinue={handleContinue}/>;
             case 3:
-                return <IngredientsQuiz onContinue={handleContinue}/>;
+                return <AllergensQuiz onContinue={handleContinue}/>;
             // ... cases for other quiz components
             default:
                 return navigate("/")

@@ -4,16 +4,16 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
-const IngredientButton = ({ ingredient, iconClass, onClick, selected }) => {
-    const btnColor = selected ? "btn-primary" : "btn-neutral";
+const AllergenButton = ({ ingredient, iconClass, onClick, selected }) => {
+    const btnColor = selected ? "btn-accent shadow-lg shadow-amber-800/30" : "btn-neutral";
 
     return (
         <button className={`btn ${btnColor} w-fit`} onClick={onClick}>
-            <i className={iconClass}></i>
+            <i className={`${iconClass}`}></i>
             {ingredient}
         </button>
     );
 };
 
-export default IngredientButton;
+export default AllergenButton;
 
