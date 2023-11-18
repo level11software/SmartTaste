@@ -23,11 +23,13 @@ from app.env_config import (
 )
 # MODELS
 from db.models.base import *
-from db.models.interaction import Interaction
+from db.models.interaction import Interaction, InteractionTypeEnum
 from db.models.ingredient import Ingredient
 from db.models.recipe import Recipe
 from db.models.tag import Tag
 from db.models.user import User
+
+from app.recommendation import hybrid_recommendation, sqlToPandas
 
 rel_database = databases.Database(REL_DATABASE_URL)
 metadata = MetaData()
@@ -55,6 +57,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 async def get_user_by_token(token: str) -> User:
@@ -134,35 +137,29 @@ def get_recommended_recipes(user: User):
     :return: a list of four recipes
     """
 
-    # recipes = get_recipes_from_json()
-    recipes = get_recipes_from_db()
     # TODO REAL CODE
-
-    return recipes
-
-
-# def function that return a list of recipes from DB
-def get_recipes_from_db():
-    """
-    Get a list of recipes from the database
-    :return: a list of recipes
-    """
 
     with Session(engine) as session:
         recipes = session.query(Recipe).all()
+        df_recipes = sqlToPandas(recipes)
+        interactions = session.query(Interaction).all()
+        df_interactions = sqlToPandas(interactions)
 
-        recipes_list = []
-        for recipe in recipes:
-            recipes_list.append(recipe.to_dict())
+    # for each row in df_interaction, add a new column rating with value depending on eventType ( if discarded, 0 otherwise)
+    
+    df_interactions['rating'] = df_interactions.apply(
+        lambda row: 
+            0.0 if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
+            0.5 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
+            0.7 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
+            1.0 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
+            None,  # This can be adjusted if there are other event types or to handle unexpected values
+        axis=1
+    )
 
-        index = 0
-        selected_recipes = []
-        while len(selected_recipes) < NUMBER_OF_MEALS and index < len(recipes_list):
-            if random.random() < 0.3:
-                selected_recipes.append(recipes_list[index])
-            index += 1
-        return selected_recipes
+    top_recipes = hybrid_recommendation(user.user_uuid, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1}, top_N=NUMBER_OF_MEALS)
 
+    return top_recipes
 
 # def function that read a json and return a list of recipes
 def get_recipes_from_json():
@@ -302,3 +299,5 @@ def upload_recipes_to_db(recipes):
             session.commit()
 
     return "Recipes uploaded"
+
+
