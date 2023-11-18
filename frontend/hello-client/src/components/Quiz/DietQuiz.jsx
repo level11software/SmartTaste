@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
-import DietPyramid from "./SubComponents/DietPyramid.jsx";
+import DietGlassCard from "./SubComponents/DietGlassCard.jsx";
 
 const DietPyramidPage = ({onContinue}) => {
     const [diet, setDiet] = useState(null);
 
 
     return (
-        <div className="flex flex-col h-screen justify-between">
+
+        <div className="flex h-screen justify-center items-center p-5">
+
+            <div className="flex flex-col h-screen justify-between p-5">
             <div className="p-4">
                 <h1 className="text-2xl font-bold">What's your diet?</h1>
             </div>
 
-            <DietPyramid onDietChange={setDiet} />
+                <div className="grid grid-cols-2 grid-rows-2 gap-8 ">
+            <DietGlassCard onDietChange={setDiet} title={"Vegan"}
+                           description={"bravo vegano."}
+                           image_src={"https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg"}/>
 
+            <DietGlassCard onDietChange={setDiet} title={"Vegetarian"}
+                           description={"one that does not include any meat or seafood."}
+                           image_src={"https://www.verywellfit.com/thmb/ZivTDxsx-dBBYR8_iTQmKjJ9JDo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/vegetarian-diet-crop-f35bdf38c6c14ba3a189bc3900dd3384.jpg"}/>
+
+            <DietGlassCard onDietChange={setDiet} title={"Pescatarian"}
+                           description={"don't give up your dose of Omega 3 fatty acids!"}
+                           image_src={"https://static.wixstatic.com/media/2b1bc2_a869d0bd4f6345588ca333a83c5b3c61~mv2.jpg/v1/fill/w_640,h_426,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/2b1bc2_a869d0bd4f6345588ca333a83c5b3c61~mv2.jpg"}/>
+
+            <DietGlassCard onDietChange={setDiet} title={"Omnivore"}
+                           description={"as nature made you."}
+                           image_src={"https://www.worldanimalprotection.org.uk/sites/default/files/styles/600x400/public/media/1019368_0.jpg?itok=AzTD9_S_"}/>
+
+                </div>
             <div className="p-4 justify-center">
                 <button
                     className="bg-primary text-white py-2 px-6 rounded-md flex items-center justify-center hover:bg-accent transition-colors"
@@ -22,6 +41,9 @@ const DietPyramidPage = ({onContinue}) => {
                     <i className="fa-solid fa-angles-right pl-5"></i>
                 </button>
             </div>
+
+
+        </div>
 
         </div>
     );

@@ -1,27 +1,10 @@
-            {/* Image container */}
-            <div className="flex-none h-10 w-10 mr-4">
-                <img src={image || defaultImage}
-                     alt={`Recipe for ${name}`}
-                     onError={(e) => { e.target.onerror = null; e.target.src = defaultImage }}
-                     className="rounded-full w-full h-full p-5 object-cover" />
-            </div>
-
-            {/* Content container */}
-            <div className="flex-grow">
-                <h2 className="text-2xl font-bold text-base-content mb-3">{name}</h2>
-                <p className="text-base-content/80 mb-2 font-thin text-sm">{headline}</p>
-
-                <div className="text-gray-700 text-sm font-mono mt-5">
-                    Calories: {nutrition.calories} kcal
+ <div className="card w-96 shadow-xl">
+            <figure><img src="https://static.wixstatic.com/media/2b1bc2_a869d0bd4f6345588ca333a83c5b3c61~mv2.jpg/v1/fill/w_640,h_426,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/2b1bc2_a869d0bd4f6345588ca333a83c5b3c61~mv2.jpg" alt="car!"/></figure>
+            <div className="card-body">
+                <h2 className="card-title">Pescatarian</h2>
+                <p>Don't give up your dose of Omega 3 fatty acids!</p>
+                <div className="card-actions justify-end">
+                    <button className="btn btn-primary">Select</button>
                 </div>
-
-                {/* tags */}
-                <div className="flex flex-wrap gap-2 mb-3 mt-10">
-                    {tags.map(tag => (
-                        <span key={tag.name} className="bg-primary text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                            {tag.name}
-                        </span>
-                    ))}
-                </div>
-
             </div>
+        </div>

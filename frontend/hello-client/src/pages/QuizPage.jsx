@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { verifiedGET } from "../consts";
 import Recipe from "../components/Recipe.jsx";
 import recipesData from '../assets/db_16.json';
-import DietPyramid from "../components/Quiz/SubComponents/DietPyramid.jsx";
+import DietGlassCard from "../components/Quiz/SubComponents/DietGlassCard.jsx";
 import DietQuiz from "../components/Quiz/DietQuiz.jsx";
 import AllergensQuiz from "../components/Quiz/AllergensQuiz.jsx";
 import QuizContainer from "../components/Quiz/QuizContainer.jsx";
