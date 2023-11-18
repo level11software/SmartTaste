@@ -1,0 +1,41 @@
+GET http://127.0.0.1:8000/
+Accept: application/json
+Authorization: Bearer iknPbkE4Ws
+
+###
+
+GET http://127.0.0.1:8000/hello/
+#GET  smarttaste.level11.software/hello/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+###
+
+###
+
+GET http://127.0.0.1:8000/homepage/
+#GET  smarttaste.level11.software/hello/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+###
+
+
+###
+
+GET http://127.0.0.1:8000/upload_recipes/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+###
+###
+POST http://127.0.0.1:8000/send_interaction/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+Content-Type: application/json
+
+{
+  "recipe_id": 1,
+  "event_type": "opened_recipe"
+}
+
+###
+
+###
