@@ -22,3 +22,14 @@ Authorization: Bearer cicciogamer89
 GET http://127.0.0.1:8000/upload_recipes/
 Accept: application/json
 Authorization: Bearer cicciogamer89
+###
+
+POST http://127.0.0.1:8000/send_interaction/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+Content-Type: application/json
+
+{
+  "recipe_id": 1,
+  "event_type": "opened_recipe"
+}

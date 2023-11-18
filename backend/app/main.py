@@ -1,4 +1,5 @@
 # IMPORTS
+import datetime
 import random
 import json
 
@@ -164,6 +165,52 @@ def get_recipes_from_json():
         return f"Error decoding JSON: {str(e)}"
     except Exception as e:
         return f"An error occurred: {str(e)}"
+
+
+@app.post("/send_interaction")
+async def send_interaction(request: Request, token: str = Depends(get_current_token)):
+    """
+    Send an interaction to the database
+    :param token: the token of the user
+    :return: a message
+    """
+    data = await request.json()
+
+    user = await get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if not data or data['recipe_id'] is None or data['event_type'] is None:
+        raise HTTPException(status_code=404, detail="Data not found")
+
+    # retrieve recipe from db
+    with Session(engine) as session:
+        recipe = session.query(Recipe).filter(Recipe.id == data['recipe_id']).first()
+        if recipe is None:
+            raise HTTPException(status_code=404, detail="Recipe not found")
+
+    add_interaction_to_db(recipe, user, data['event_type'])
+
+    return "Interaction stored"
+
+
+def add_interaction_to_db(recipe, user, event_type):
+    """
+    Add an interaction to the database
+    :param recipe: the id of the recipe
+    :param user: the id of the user
+    :param event_type: the type of the event
+    :return: a message
+    """
+
+    new_interaction = Interaction(time=str(datetime.datetime.now()), eventType=event_type, recipeID=recipe.id,
+                                  userID=user.id)
+
+    with Session(engine) as session:
+        session.add(new_interaction)
+        session.commit()
+
+    return
 
 
 @app.get("/upload_recipes")
