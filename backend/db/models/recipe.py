@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, JSON
+from sqlalchemy import Column, Integer, String, JSON, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -10,10 +10,16 @@ from db.models.recipe_tag_association import recipe_tag_association
 class Recipe(Base):
     __tablename__ = "recipes"  # the name of the table in the database
     id = Column(Integer, primary_key=True, index=True)  # the primary key of the table
+    uuid = Column(String)  # the uuid of the recipe
     name = Column(String)  # name of the recipe
     preptime = Column(Integer)  # preparation time in minutes
     image_link = Column(String)  # link to an image of the recipe
     recipe_link = Column(String)  # link to the recipe
+    headline = Column(String)  # Add headline (string)
+    nutrition_energy = Column(Integer)  # Add nutrition_energy (int)
+    nutrition_calories = Column(Integer)  # Add nutrition_calories (int)
+    nutrition_carbo = Column(Float)  # Add nutrition_carbo (float)
+    nutrition_protein = Column(Float)  # Add nutrition_protein (float)
 
     # Define a relationship to the Interaction table
     interactions = relationship("Interaction", back_populates="recipes")
