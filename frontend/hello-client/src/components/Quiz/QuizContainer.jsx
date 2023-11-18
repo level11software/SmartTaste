@@ -6,7 +6,7 @@ import AllergensQuiz from './AllergensQuiz.jsx';
 
 import CarouselQuiz from "./CarouselQuiz.jsx";
 import {useNavigate} from "react-router-dom";
-import FlavorSpectrumQuiz from "./FlavorSpectrumQuiz.jsx";
+
 
 const QuizContainer = () => {
 
