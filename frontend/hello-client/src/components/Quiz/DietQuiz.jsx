@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DietPyramid from "./DietPyramid.jsx";
+import DietPyramid from "./SubComponents/DietPyramid.jsx";
 
 const DietPyramidPage = ({onContinue}) => {
     const [diet, setDiet] = useState(null);

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import IngredientButton from "./IngredientButton.jsx";
+import IngredientButton from "./SubComponents/IngredientButton.jsx";
 
 // ... [rest of the imports]
 
-const IngredientsQuiz = () => {
+const IngredientsQuiz = ({ onContinue }) => {
     const [selectedIngredients, setSelectedIngredients] = useState([]);
 
     useEffect(() => {
@@ -51,10 +51,12 @@ const IngredientsQuiz = () => {
             <div className="p-4 text-right">
                 <button
                     className="bg-primary text-white py-2 px-6 rounded-md flex items-center justify-center hover:bg-accent transition-colors"
-                    onClick={handleContinue}
+                    onClick={onContinue}
                 >
                     <span>Continue</span>
-                    <i className="fa-solid fa-angles-right pl-5"></i>
+                    <svg className="ml-2 w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
                 </button>
             </div>
         </div>
