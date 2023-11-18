@@ -1,0 +1,11 @@
+GET http://127.0.0.1:8000/
+Accept: application/json
+Authorization: Bearer iknPbkE4Ws
+
+###
+
+#GET http://127.0.0.1:8000/hello/
+GET  smarttaste.level11.software/hello/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+
