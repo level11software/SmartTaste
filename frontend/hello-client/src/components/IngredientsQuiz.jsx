@@ -1,22 +1,52 @@
-import React, { useState } from 'react';
-import DietPyramid from "./DietPyramid.jsx";
+import React, {useEffect, useState} from 'react';
+import IngredientButton from "./IngredientButton.jsx";
 
-const DietPyramidPage = () => {
-    const [diet, setDiet] = useState(null);
+// ... [rest of the imports]
+
+const IngredientsQuiz = () => {
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+    useEffect(() => {
+        console.log('Selected Ingredients:', selectedIngredients);
+    }, [selectedIngredients]);
+
+    const handleIngredientClick = ingredient => {
+        setSelectedIngredients(prevIngredients => {
+            if (prevIngredients.includes(ingredient)) {
+                return prevIngredients.filter(item => item !== ingredient);
+            } else {
+                return [...prevIngredients, ingredient];
+            }
+        });
+    };
 
     const handleContinue = () => {
         // Handle the continue action here
-        console.log('Selected Diet:', diet);
-        // For example, navigate to the next page or process the selected diet
+        console.log('Continue with these ingredients:', selectedIngredients);
     };
+
+    const ingredients = [
+        { name: "Chicken", icon: "fa-solid fa-drumstick-bite" },
+        { name: "Fish", icon: "fa-solid fa-fish" },
+        { name: "Blueberries", icon: "fa-brands fa-blackberry" },
+        // ... [add other ingredients here]
+    ];
 
     return (
         <div className="flex flex-col h-screen justify-between">
-            <div className="p-4">
-                <h1 className="text-2xl font-bold">What's your diet?</h1>
+            <div className="p-4 p-t-4">
+                <h1 className="text-2xl font-bold">Pick some ingredients</h1>
             </div>
 
-            <DietPyramid onDietChange={setDiet} />
+            {ingredients.map(ingredient => (
+                <IngredientButton
+                    key={ingredient.name}
+                    ingredient={ingredient.name}
+                    iconClass={ingredient.icon}
+                    onClick={() => handleIngredientClick(ingredient.name)}
+                    selected={selectedIngredients.includes(ingredient.name)}
+                />
+            ))}
 
             <div className="p-4 text-right">
                 <button
@@ -33,4 +63,5 @@ const DietPyramidPage = () => {
     );
 };
 
-export default DietPyramidPage;
+export default IngredientsQuiz;
+

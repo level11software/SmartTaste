@@ -5,6 +5,7 @@ import Recipe from "../components/Recipe.jsx";
 import recipesData from '../assets/db_16.json';
 import DietPyramid from "../components/DietPyramid.jsx";
 import DietQuiz from "../components/DietQuiz.jsx";
+import IngredientsQuiz from "../components/IngredientsQuiz.jsx";
 
 function QuizPage() {
   const userCode = useRef(-1);
@@ -13,7 +14,7 @@ function QuizPage() {
   useEffect(() => {
     const cookie = localStorage.getItem("user-code");
 
-    if (cookie == null || cookie == undefined) {
+    if (cookie == null) {
       navigate("/login");
     } else {
       userCode.current = cookie;
@@ -26,7 +27,7 @@ function QuizPage() {
   return (
     <>
       {/*A list of recipes*/}
-      <DietQuiz />
+      <IngredientsQuiz />
     </>
   );
 }
