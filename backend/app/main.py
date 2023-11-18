@@ -7,7 +7,7 @@ import databases
 import requests
 
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Depends
-from fastapi import Request
+from fastapi import Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -124,9 +124,9 @@ async def homepage(token: str = Depends(get_current_token)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    json_data = get_recommended_recipes(user)
+    json_data = get_recommended_recipes(user).to_json(orient='records', indent=4)
 
-    return JSONResponse(content=json_data, status_code=200)
+    return Response(content=json_data, media_type="application/json")
 
 
 # def internal function that return the recipes most recommended for the user
@@ -157,7 +157,7 @@ def get_recommended_recipes(user: User):
         axis=1
     )
 
-    top_recipes = hybrid_recommendation(user.user_uuid, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1}, top_N=NUMBER_OF_MEALS)
+    top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1}, top_N=NUMBER_OF_MEALS)
 
     return top_recipes
 
