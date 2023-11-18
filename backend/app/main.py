@@ -134,10 +134,34 @@ def get_recommended_recipes(user: User):
     :return: a list of four recipes
     """
 
-    recipes = get_recipes_from_json()
+    # recipes = get_recipes_from_json()
+    recipes = get_recipes_from_db()
     # TODO REAL CODE
 
     return recipes
+
+
+# def function that return a list of recipes from DB
+def get_recipes_from_db():
+    """
+    Get a list of recipes from the database
+    :return: a list of recipes
+    """
+
+    with Session(engine) as session:
+        recipes = session.query(Recipe).all()
+
+        recipes_list = []
+        for recipe in recipes:
+            recipes_list.append(recipe.to_dict())
+
+        index = 0
+        selected_recipes = []
+        while len(selected_recipes) < NUMBER_OF_MEALS and index < len(recipes_list):
+            if random.random() < 0.3:
+                selected_recipes.append(recipes_list[index])
+            index += 1
+        return selected_recipes
 
 
 # def function that read a json and return a list of recipes
