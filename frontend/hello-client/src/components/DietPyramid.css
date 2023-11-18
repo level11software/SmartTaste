@@ -1,0 +1,8 @@
+{/* Tailwind CSS styles */}
+.pyramid-button {
+    transition: all 0.3s ease;
+    margin-bottom: -1rem; /* Overlap the pyramid levels */
+    border: none;
+    cursor: pointer;
+    text-white: white;
+}
