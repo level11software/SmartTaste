@@ -19,6 +19,7 @@ const DietPyramidPage = ({onContinue}) => {
             <div className="flex flex-col h-screen justify-between p-5">
             <div className="p-4">
                 <h1 className="text-2xl font-bold">What's your diet?</h1>
+                <div className="divider divider-primary text-xs"> Pick one below.</div>
             </div>
 
                 <div className="grid grid-cols-2 grid-rows-2 gap-8 ">
@@ -47,15 +48,18 @@ const DietPyramidPage = ({onContinue}) => {
                            selectedDiet={selectedDiet}/>
 
                 </div>
-            <div className="p-4 justify-center">
-                <button
-                    className="bg-primary text-white py-2 px-6 rounded-md flex items-center justify-center hover:bg-accent transition-colors"
-                    onClick={onContinue}
-                >
-                    <span>Continue</span>
-                    <i className="fa-solid fa-angles-right pl-5"></i>
-                </button>
-            </div>
+
+                <div className="p-4 justify-center">
+                    <button
+                        className={`bg-primary text-white py-2 px-6 rounded-md flex items-center justify-center hover:bg-accent transition-colors ${selectedDiet ? '' : 'opacity-50 cursor-not-allowed'}`}
+                        onClick={selectedDiet ? onContinue : null}
+                        disabled={!selectedDiet} // Disable the button if no diet is selected
+                    >
+                        <span>Continue</span>
+                        <i className="fa-solid fa-angles-right pl-5"></i>
+                    </button>
+                </div>
+
 
 
         </div>
