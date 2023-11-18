@@ -68,9 +68,9 @@ function HomePage() {
   }, []);
 
   return (
-    <>
+    <div>
       {/*A list of recipes*/}
-      <div className="overflow-auto p-5" style={{ maxHeight: "80vh" }}>
+      <div className="">
         {recipesData.map((item) => (
           <Recipe
             key={item.recipe.id}
@@ -115,7 +115,7 @@ function HomePage() {
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 }
 

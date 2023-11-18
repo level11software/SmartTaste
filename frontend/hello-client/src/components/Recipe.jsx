@@ -43,6 +43,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
           </svg>
         </button>
       </div>
+
       <div className="flex flex-row">
         <div className={"w-1/3"}>
           <img
@@ -57,7 +58,23 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
           </p>
         </div>
       </div>
+
+      <div className={"flex items-end h-full mt-5"}>
+        {/* tags */}
+        <div className="flex flex-wrap gap-1 mb-2">
+          {tags.map((tag) => (
+            <span
+              key={tag.name}
+              className="badge-primary text-white text-xs  mr-2 px-1.5 py-0.5 rounded"
+            >
+              {tag.name}
+            </span>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-row-reverse gap-4">
+        {/* details */}
         <button
           className="btn btn-primary btn-xs"
           onClick={() => {
@@ -101,21 +118,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
           </svg>
         </button>
       </div>
-      <div className={expanded ? null : "hidden"}>
-        <div className={"flex items-end h-full mt-5"}>
-          {/* tags */}
-          <div className="flex flex-wrap gap-1 mb-2">
-            {tags.map((tag) => (
-              <span
-                key={tag.name}
-                className="badge-primary text-white text-xs  mr-2 px-1.5 py-0.5 rounded"
-              >
-                {tag.name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+      <div className={expanded ? null : "hidden"}></div>
     </div>
   );
 };

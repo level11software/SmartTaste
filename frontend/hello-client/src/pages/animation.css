@@ -26,3 +26,17 @@
   animation-name: "rotatem90";
   animation-duration: 0.5s;
 }
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Apply the animation to the element with the class you want to animate */
+.slide-left {
+  animation: slideLeft 0.8s ease-out;
+}
