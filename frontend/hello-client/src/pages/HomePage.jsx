@@ -22,14 +22,14 @@ function HomePage() {
 
     setRecipesData(
       recipesData.filter((item) => {
-        return item.recipe.id != id;
+        return item.id != id;
       })
     );
   }
 
   async function commitOrder() {
     const keys = recipesData.map((item) => {
-      return item.recipe.id;
+      return item.id;
     });
 
     keys.map((id) => registerAction(userCode.current, BOUGHT_RECIPE, id));
@@ -73,8 +73,8 @@ function HomePage() {
       <div className="">
         {recipesData.map((item) => (
           <Recipe
-            key={item.recipe.id}
-            recipe={item.recipe}
+            key={item.id}
+            recipe={item}
             removal={removeCard}
             openDetail={commitOpened}
             savedAction={commitSave}
@@ -96,7 +96,7 @@ function HomePage() {
         <div className="modal-box">
           <h3 className="font-bold text-lg">Purchase Summary</h3>
           {recipesData.map((item) => (
-            <p className="py-4">{item.recipe.name}</p>
+            <p className="py-4">{item.name}</p>
           ))}
 
           <div className="modal-action ">

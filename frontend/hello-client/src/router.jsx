@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import QuizPage from "./pages/QuizPage.jsx";
+import AniSium from "./pages/AniSium";
 
 export const pages = [
   {
@@ -24,9 +25,15 @@ export const pages = [
   {
     path: "/quiz",
     name: "quiz",
-    element: <QuizPage  />,
+    element: <QuizPage />,
     displayNav: false,
     id: 2,
+  },
+  {
+    path: "/ani",
+    name: "ani",
+    element: <AniSium />,
+    id: 3,
   },
 ];
 

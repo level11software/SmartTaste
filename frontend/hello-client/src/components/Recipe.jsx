@@ -13,7 +13,18 @@ let defaultImage =
  */
 const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
   // Destructuring Props
-  const { name, headline, prepTime, image, tags, nutrition, id } = recipe;
+  const {
+    name,
+    headline,
+    preptime,
+    image_link,
+    recipe_link,
+    tags_list,
+    nutrition,
+    allergens,
+    ingredient_list,
+    id,
+  } = recipe;
   const [expanded, setExpanded] = useState(false);
   const [wasExpanded, setWasExpanded] = useState(false);
 
@@ -47,7 +58,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
       <div className="flex flex-row">
         <div className={"w-1/3"}>
           <img
-            src={image || defaultImage}
+            src={image_link || defaultImage}
             alt={name}
             className="rounded-lg shadow-lg "
           />
@@ -62,12 +73,12 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
       <div className={"flex items-end h-full mt-5"}>
         {/* tags */}
         <div className="flex flex-wrap gap-1 mb-2">
-          {tags.map((tag) => (
+          {tags_list.split(", ").map((tag) => (
             <span
-              key={tag.name}
+              key={tag}
               className="badge-primary text-white text-xs  mr-2 px-1.5 py-0.5 rounded"
             >
-              {tag.name}
+              {tag}
             </span>
           ))}
         </div>
