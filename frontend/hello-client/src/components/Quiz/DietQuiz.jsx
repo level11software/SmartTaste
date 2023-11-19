@@ -65,7 +65,7 @@ const DietPyramidPage = ({onContinue}) => {
                     <div className="divider divider-primary text-xs"> Pick one below.</div>
                 </div>
 
-                <div className="grid grid-cols-2 grid-rows-2 gap-8 ">
+                <div className="grid grid-cols-2 grid-rows-2 gap-8 justify-items-center">
                     <DietGlassCard onDietChange={handleDietChange} title={"Vegan"}
                                    description={"bravo vegano."}
                                    image_src={"https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg"}

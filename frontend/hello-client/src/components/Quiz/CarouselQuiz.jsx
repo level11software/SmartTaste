@@ -74,6 +74,7 @@ const CarouselQuiz = ({onContinue}) => {
     return (
         <div className="flex h-screen justify-center items-center p-5">
             <div className="flex flex-col h-screen justify-between p-5 w-2/5">
+
                 <div className="p-4 pt-4">
                     <h1 className="text-2xl font-bold">What describes you?</h1>
                     <div className="divider divider-primary text-xs">Slides through recipes that represent your taste

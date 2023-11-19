@@ -18,7 +18,7 @@ const DietGlassCard = ({
   return (
     // Apply whileHover to the motion.div
     <motion.div
-      className="card shadow-xl w-64"
+      className="card shadow-xl w-72"
       whileHover={{
         scale: 1.05,
         transition: { duration: 0.2 },
@@ -27,7 +27,7 @@ const DietGlassCard = ({
       onClick={() => handleClick(title)}
     >
       <figure>
-        <img className={"h-[170px] object-cover"} src={imageSrc} alt="car!" />
+        <img className={"h-[190px] object-cover"} src={imageSrc} alt="car!" />
       </figure>
       <div className="card-body p-4">
         <h2 className="card-title">{title}</h2>
