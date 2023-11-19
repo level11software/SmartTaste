@@ -52,7 +52,7 @@ def content_based_score(user_id, df_interactions, df_recipes, rating_threshold=2
 
     # TF-IDF Vectorizer
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-    df_recipes['combined_content'] = df_recipes['name'] + ' ' + df_recipes['ingredients_list']
+    df_recipes['combined_content'] = df_recipes['name']# + ' ' + df_recipes['ingredients_list']
 
     # Compute similarity for name+ingredients
     tfidf_matrix = tfidf_vectorizer.fit_transform(df_recipes['combined_content'])  # or other relevant content
