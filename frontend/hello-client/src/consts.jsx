@@ -4,6 +4,7 @@ export const backend_url =
 export const OPENED_RECIPE = "OPENED_RECIPE";
 export const BOUGHT_RECIPE = "BOUGHT_RECIPE";
 export const DISCARDED_RECIPE = "DISCARDED_RECIPE";
+export const SAVED_RECIPE = "SAVED_RECIPE";
 
 export async function verifiedGET(endpoint, authToken) {
   const url = `${backend_url}/${endpoint}`;
@@ -44,7 +45,7 @@ export async function verifiedPOST(endpoint, authToken, payload) {
   }
 
   const content = await res.json();
-  return content[0];
+  return content;
 }
 
 export async function registerAction(authToken, type, id) {

@@ -6,6 +6,7 @@ import {
   DISCARDED_RECIPE,
   BOUGHT_RECIPE,
   OPENED_RECIPE,
+  SAVED_RECIPE,
   verifiedPOST,
 } from "../consts";
 import Recipe from "../components/Recipe.jsx";
@@ -20,15 +21,6 @@ function HomePage() {
   async function removeCard(id) {
     //request post the removed card
     await registerAction(userCode.current, DISCARDED_RECIPE, id);
-
-    console.log(
-      recipesData.map((item) => {
-        if (item.id == id) {
-          return null;
-        }
-        return item;
-      })
-    );
 
     setRecipesData(
       recipesData.map((item, index) => {
@@ -51,7 +43,18 @@ function HomePage() {
   }
 
   async function commitSave(id) {
-    //registerAction(userCode.current, )
+    await registerAction(userCode.current, SAVED_RECIPE, id);
+
+    setRecipesData(
+      recipesData.map((item, index) => {
+        if (item.id == id) {
+          item.noRender = true;
+          getRecommendation(index);
+          return item;
+        }
+        return item;
+      })
+    );
   }
 
   async function commitOpened(id) {
@@ -84,7 +87,15 @@ function HomePage() {
       payload
     );
 
-    console.log(newrecc);
+    if (newrecc == null) {
+      setRecipesData(
+        recipesData.filter((_, i) => {
+          return i != index;
+        })
+      );
+    }
+
+    console.log(newrecc[0]);
     setRecipesData(
       recipesData.map((item, i) => {
         if (i == index) {
@@ -150,7 +161,7 @@ function HomePage() {
               ))}
             </ul>
 
-            <div className="modal-action ">
+            <div className="modal-action">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn mx-5">Close</button>
