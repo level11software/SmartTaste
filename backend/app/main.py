@@ -110,7 +110,36 @@ async def say_hello(token: str = Depends(get_current_token)):
         raise HTTPException(status_code=404, detail="User not found")
 
 
+@app.get("/get_first_recipes")
+async def get_first_recipes(token: str = Depends(get_current_token)):
+    with Session(engine) as session:
+        recipes = session.query(Recipe).all()
+
+        selected_recipes = []
+        for i in range(0, 9):
+            current_recipe = recipes[random.randint(0, len(recipes) - 1)]
+            recipes.remove(current_recipe)
+            selected_recipes.append(current_recipe)
+
+        dict_recipes = {
+            "carousels": [
+                [
+                    selected_recipes[0].to_dict(), selected_recipes[1].to_dict(), selected_recipes[2].to_dict()
+                ],
+                [
+                    selected_recipes[3].to_dict(), selected_recipes[4].to_dict(), selected_recipes[5].to_dict()
+                ],
+                [
+                    selected_recipes[6].to_dict(), selected_recipes[7].to_dict(), selected_recipes[8].to_dict()
+                ]
+            ]
+        }
+
+        return JSONResponse(content=dict_recipes)
+
 # define homepage endpoint, restricted to GET with a valid token
+
+
 @app.get("/homepage")
 async def homepage(token: str = Depends(get_current_token)):
     """
@@ -181,8 +210,9 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
         axis=1
     )
 
-    top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1},
-                                        top_N=(N_recipes+len(exclude_ids)))
+    top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions,
+                                        {'collab': 1, 'content': 1, 'type': 1},
+                                        top_N=(N_recipes + len(exclude_ids)))
 
     # remove recipes already in the cart
     top_recipes = top_recipes[~top_recipes['id'].isin(exclude_ids)]
