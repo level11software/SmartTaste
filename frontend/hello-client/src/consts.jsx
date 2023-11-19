@@ -1,5 +1,4 @@
-export const backend_url =
-  "https://c9fe-131-159-196-234.ngrok-free.app";
+export const backend_url = "https://c9fe-131-159-196-234.ngrok-free.app";
 
 export const OPENED_RECIPE = "OPENED_RECIPE";
 export const BOUGHT_RECIPE = "BOUGHT_RECIPE";
@@ -26,36 +25,6 @@ export async function verifiedGET(endpoint, authToken) {
   console.log(data);
   return data;
 }
-
-export async function postToAPI(endpoint, data, authToken, additionalHeaders = {}) {
-  const url = `${backend_url}/${endpoint}`;
-
-  console.log("posting to url:", url)
-  // Default headers
-  let headers = {
-    Authorization: `Bearer ${authToken}`,
-    "Content-Type": "application/json",
-    ...additionalHeaders,
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: data//JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    return await response.json(); // Assuming the response is JSON
-  } catch (error) {
-    console.error('Error making API request:', error);
-    throw error; // Rethrowing the error for the caller to handle
-  }
-}
-
 
 export async function verifiedPOST(endpoint, authToken, payload) {
   const url = `${backend_url}/${endpoint}`;
