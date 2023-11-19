@@ -32,8 +32,8 @@ Authorization: Bearer cicciogamer89
 Content-Type: application/json
 
 {
-  "recipe_id": 1,
-  "event_type": "OPENED_RECIPE"
+  "recipe_id": 16,
+  "event_type": "BOUGHT_RECIPE"
 }
 
 ###

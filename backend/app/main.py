@@ -214,16 +214,16 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
 
     df_interactions['rating'] = df_interactions.apply(
         lambda row:
-        None if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
-        3 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
-        4 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
-        5 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
+        0 if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
+        0.8 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
+        0.8 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
+        1.0 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
         None,  # This can be adjusted if there are other event types or to handle unexpected values
         axis=1
     )
 
     top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions,
-                                        {'collab': 1, 'content': 1, 'type': 1},
+                                        {'collab': 0, 'content': 0.5, 'type': 0.5},
                                         )
 
     # filter recipes based on diet and allergies
@@ -266,6 +266,8 @@ async def send_interaction(request: Request, token: str = Depends(get_current_to
         else:
             add_interaction_to_db(recipe, user, data['event_type'])
 
+    # TODO REMOVE THIS
+    # get_recommended_recipes(user, 6, [])
     return "Interaction stored"
 
 

@@ -30,7 +30,7 @@ def sqlToPandas(sqlalchemy_objects: List[Any]) -> Dict[str, List]:
     return pd.DataFrame(dict(merged_dict))
 
 
-def collaborative_score(user_id, df_interactions, neutral_rating=0.3, neighbors=5):
+def collaborative_score(user_id, df_interactions, neutral_rating=0.5, neighbors=5):
     # Create user-item matrix
     user_item_matrix = df_interactions.pivot(index='userID', columns='recipeID', values='rating').fillna(neutral_rating)
 
@@ -46,13 +46,13 @@ def collaborative_score(user_id, df_interactions, neutral_rating=0.3, neighbors=
     return collab_scores
 
 
-def content_based_score(user_id, df_interactions, df_recipes, rating_threshold=2):
+def content_based_score(user_id, df_interactions, df_recipes, rating_threshold=0.2):
     # User's liked recipes
     liked_recipes = df_interactions[(df_interactions['userID'] == user_id) & (df_interactions['rating']>rating_threshold)]['recipeID']
 
     # TF-IDF Vectorizer
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-    df_recipes['combined_content'] = df_recipes['name']# + ' ' + df_recipes['ingredients_list']
+    df_recipes['combined_content'] = df_recipes['name'] + ' ' + df_recipes['ingredients_list']
 
     # Compute similarity for name+ingredients
     tfidf_matrix = tfidf_vectorizer.fit_transform(df_recipes['combined_content'])  # or other relevant content
@@ -82,8 +82,7 @@ def hybrid_recommendation(user_id, df_recipes, df_interactions, weights):
 
 
     # Weighted sum of scores
-    final_scores = (weights['collab'] * collab_scores +
-                    weights['content'] * content_scores +
+    final_scores = (weights['content'] * content_scores +
                     weights['type'] * type_scores).fillna(0)
 
     # Join final scores with df_recipes
@@ -91,5 +90,7 @@ def hybrid_recommendation(user_id, df_recipes, df_interactions, weights):
     
     # Sort by final score and return top recipes
     sorted_recipes = df_recipes_with_scores.sort_values(by='final_score', ascending=False)
+
+    print(sorted_recipes)
     #sorted_recipes.drop(columns=['final_score'], inplace=True)
     return sorted_recipes.reset_index()
