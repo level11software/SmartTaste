@@ -76,10 +76,10 @@ def hybrid_recommendation(user_id, df_recipes, df_interactions, weights):
     content_scores, type_scores = content_based_score(user_id, df_interactions, df_recipes)
 
     # Normalize scores
-    max_score = max(collab_scores.max(), content_scores.max(), type_scores.max())
-    collab_scores /= max_score
-    content_scores /= max_score
-    type_scores /= max_score
+    collab_scores = collab_scores / collab_scores.max() if collab_scores.max() != 0 else collab_scores
+    content_scores = content_scores / content_scores.max() if content_scores.max() != 0 else content_scores
+    type_scores = type_scores / type_scores.max() if type_scores.max() != 0 else type_scores
+
 
     # Weighted sum of scores
     final_scores = (weights['collab'] * collab_scores +

@@ -202,7 +202,7 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
 
     df_interactions['rating'] = df_interactions.apply(
         lambda row:
-        0 if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
+        None if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
         3 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
         4 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
         5 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
