@@ -71,7 +71,7 @@ def content_based_score(user_id, df_interactions, df_recipes, rating_threshold=2
 
     return content_scores, type_scores
 
-def hybrid_recommendation(user_id, df_recipes, df_interactions, weights, top_N=4):
+def hybrid_recommendation(user_id, df_recipes, df_interactions, weights):
     collab_scores = collaborative_score(user_id, df_interactions)
     content_scores, type_scores = content_based_score(user_id, df_interactions, df_recipes)
 
@@ -90,6 +90,6 @@ def hybrid_recommendation(user_id, df_recipes, df_interactions, weights, top_N=4
     df_recipes_with_scores = df_recipes.set_index('id').join(final_scores.rename('final_score'))
     
     # Sort by final score and return top recipes
-    sorted_recipes = df_recipes_with_scores.sort_values(by='final_score', ascending=False).head(top_N)
+    sorted_recipes = df_recipes_with_scores.sort_values(by='final_score', ascending=False)
     #sorted_recipes.drop(columns=['final_score'], inplace=True)
     return sorted_recipes.reset_index()

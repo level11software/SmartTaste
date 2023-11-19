@@ -27,7 +27,7 @@ from db.models.interaction import Interaction, InteractionTypeEnum
 from db.models.ingredient import Ingredient
 from db.models.recipe import Recipe
 from db.models.tag import Tag
-from db.models.user import User
+from db.models.user import User, DietEnum
 
 from app.recommendation import hybrid_recommendation, sqlToPandas
 
@@ -212,10 +212,13 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
 
     top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions,
                                         {'collab': 1, 'content': 1, 'type': 1},
-                                        top_N=(N_recipes + len(exclude_ids)))
+                                        )
+
+    # filter recipes based on diet and allergies
+    top_recipes = filter_recipes(top_recipes, user.diet, user.allergies)
 
     # remove recipes already in the cart
-    top_recipes = top_recipes[~top_recipes['id'].isin(exclude_ids)]
+    top_recipes = top_recipes[~top_recipes['id'].isin(exclude_ids)].head(N_recipes)
     return top_recipes.head(N_recipes)
 
 
@@ -321,3 +324,24 @@ async def set_allergens(request: Request, token: str = Depends(get_current_token
         session.commit()
 
     return "Allergies set"
+
+
+def filter_recipes(df_recipes, diet: DietEnum, allergies: str):
+    print(diet, allergies)
+
+    # Filter by dietary preferences
+    if diet == DietEnum.VEGAN:
+        df_recipes = df_recipes[df_recipes['tags_list'].str.contains('Vegan')]
+    elif diet == DietEnum.VEGETARIAN:
+        df_recipes = df_recipes[df_recipes['tags_list'].str.contains('Vegetarian') | df_recipes['tags_list'].str.contains('Vegan')]
+    elif diet == DietEnum.PESCATARIAN:
+        df_recipes = df_recipes[~df_recipes['tags_list'].str.contains('Meat')]
+
+    # Filter out recipes with allergens (if allergens is not empty)
+    if allergies:
+        allergies = allergies.split(", ")
+        for allergen in allergies:
+            df_recipes = df_recipes[~df_recipes['allergens'].str.contains(allergen)]
+
+    print(df_recipes)
+    return df_recipes
