@@ -25,6 +25,31 @@ export async function verifiedGET(endpoint, authToken) {
   console.log(data);
   return data;
 }
+export async function postToAPI(endpoint, data, authToken, additionalHeaders = {}) {
+  const url = `${backend_url}/${endpoint}`;
+  console.log("posting to url:", url)
+  // Default headers
+  let headers = {
+    Authorization: `Bearer ${authToken}`,
+    "Content-Type": "application/json",
+    ...additionalHeaders,
+  };
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: data//JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json(); // Assuming the response is JSON
+  } catch (error) {
+    console.error('Error making API request:', error);
+    throw error; // Rethrowing the error for the caller to handle
+  }
+}
+
 
 export async function verifiedPOST(endpoint, authToken, payload) {
   const url = `${backend_url}/${endpoint}`;
