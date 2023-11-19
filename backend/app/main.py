@@ -112,30 +112,42 @@ async def say_hello(token: str = Depends(get_current_token)):
 
 @app.get("/get_first_recipes")
 async def get_first_recipes(token: str = Depends(get_current_token)):
+    user = await get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
     with Session(engine) as session:
         recipes = session.query(Recipe).all()
 
-        selected_recipes = []
-        for i in range(0, 9):
-            current_recipe = recipes[random.randint(0, len(recipes) - 1)]
-            recipes.remove(current_recipe)
-            selected_recipes.append(current_recipe)
+        df_recipes = sqlToPandas(recipes)
+        filtered_recipes = filter_recipes(df_recipes, user.diet, user.allergies)
+
+        # Assuming 'filtered_recipes' is a DataFrame
+        selected_recipes_df = filtered_recipes.sample(n=min(len(filtered_recipes), 9), replace=False)
+
+        # If you need a list of dictionaries (each dictionary representing a recipe)
+        selected_recipes = selected_recipes_df.to_dict(orient='records')
+
+        while len(selected_recipes) < 9:
+            selected_recipes += selected_recipes
+        print("hello")
 
         dict_recipes = {
             "carousels": [
                 [
-                    selected_recipes[0].to_dict(), selected_recipes[1].to_dict(), selected_recipes[2].to_dict()
+                    selected_recipes[0], selected_recipes[1], selected_recipes[2]
                 ],
                 [
-                    selected_recipes[3].to_dict(), selected_recipes[4].to_dict(), selected_recipes[5].to_dict()
+                    selected_recipes[3], selected_recipes[4], selected_recipes[5]
                 ],
                 [
-                    selected_recipes[6].to_dict(), selected_recipes[7].to_dict(), selected_recipes[8].to_dict()
+                    selected_recipes[6], selected_recipes[7], selected_recipes[8]
                 ]
             ]
         }
 
         return JSONResponse(content=dict_recipes)
+
 
 # define homepage endpoint, restricted to GET with a valid token
 
@@ -331,7 +343,8 @@ def filter_recipes(df_recipes, diet: DietEnum, allergies: str):
     if diet == DietEnum.VEGAN:
         df_recipes = df_recipes[df_recipes['tags_list'].str.contains('Vegan')]
     elif diet == DietEnum.VEGETARIAN:
-        df_recipes = df_recipes[df_recipes['tags_list'].str.contains('Vegetarian') | df_recipes['tags_list'].str.contains('Vegan')]
+        df_recipes = df_recipes[
+            df_recipes['tags_list'].str.contains('Vegetarian') | df_recipes['tags_list'].str.contains('Vegan')]
     elif diet == DietEnum.PESCATARIAN:
         df_recipes = df_recipes[~df_recipes['tags_list'].str.contains('Meat')]
 

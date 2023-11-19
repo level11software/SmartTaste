@@ -9,10 +9,10 @@ from db.models.base import Base
 
 # Define an enumeration for the InteractionType
 class InteractionTypeEnum(Enum):
-    OPENED_RECIPE = "opened_recipe"
-    SAVED_RECIPE = "saved_recipe"
-    BOUGHT_RECIPE = "bought_recipe"
-    DISCARDED_RECIPE = "discarded_recipe"
+    OPENED_RECIPE = "OPENED_RECIPE"
+    SAVED_RECIPE = "SAVED_RECIPE"
+    BOUGHT_RECIPE = "BOUGHT_RECIPE"
+    DISCARDED_RECIPE = "DISCARDED_RECIPE"
 
 
 class Interaction(Base):
