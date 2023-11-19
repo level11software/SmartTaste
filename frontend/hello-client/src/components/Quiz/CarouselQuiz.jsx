@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {verifiedGET} from "../../consts.jsx";
+import React, {useEffect, useRef, useState} from 'react';
+import {BOUGHT_RECIPE, postToAPI, registerAction, verifiedGET} from "../../consts.jsx";
 
 const CarouselQuiz = ({onContinue}) => {
     const [carouselItems, setCarouselItems] = useState([[], [], []]);
+    const userCode = useRef("");
     const [currentImageIndexes, setCurrentImageIndexes] = useState([0, 0, 0]);
 
 
@@ -11,6 +12,7 @@ const CarouselQuiz = ({onContinue}) => {
         const cookie = localStorage.getItem("user-code");
         let homePageJson = await verifiedGET("get_first_recipes", cookie);
 
+        userCode.current = cookie;
         //const parsedJson = JSON.parse(dummyJsonString);
         // Assuming the JSON structure is as provided, with a key 'carousels'
         setCarouselItems(homePageJson.carousels);
@@ -30,16 +32,31 @@ const CarouselQuiz = ({onContinue}) => {
         setCurrentImageIndexes(newCurrentImageIndexes);
     };
 
-    // Updated function to handle button click
-    const handleButtonClick = () => {
-        currentImageIndexes.forEach((imageIndex, carouselIndex) => {
-            const imageId = carouselItems[carouselIndex][imageIndex]?.id;
-            if (imageId) {
-                console.log(`Currently viewed image ID in Carousel ${carouselIndex + 1}: ${imageId}`);
-            }
-        });
-        // onContinue();
+// Updated function to handle button click
+    const handleButtonClick = async () => {
+        try {
+            // Map each image index to a registerAction call and store the promises
+            const actionPromises = currentImageIndexes.map((imageIndex, carouselIndex) => {
+                const imageId = carouselItems[carouselIndex][imageIndex]?.id;
+                if (imageId) {
+                    console.log(`Currently viewed image ID in Carousel ${carouselIndex + 1}: ${imageId}`);
+                    return registerAction(userCode.current, "BOUGHT_RECIPE", imageId);
+                } else {
+                    return Promise.resolve(); // Return a resolved promise for non-existent image IDs
+                }
+            });
+
+            // Wait for all registerAction calls to complete
+            await Promise.all(actionPromises);
+
+            // Print upload done after all actions are completed
+            console.log("upload done");
+            onContinue();
+        } catch (error) {
+            console.error("An error occurred during the upload process:", error);
+        }
     };
+
 
 // Function to render a single carousel
     const renderCarousel = (carouselIndex) => (
