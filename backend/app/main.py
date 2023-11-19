@@ -59,14 +59,16 @@ app.add_middleware(
 )
 
 
-async def get_user_by_token(token: str) -> User:
+def get_user_by_token(token: str) -> User:
     """
     Get a user object by its token
     :param token: the token of the user, given by Level11
     :return: the user object if found, None otherwise
     """
-    query = select(User).where(User.client_secret == token)
-    user = await rel_database.fetch_one(query)
+    with Session(engine) as session:
+        user = session.query(User).filter(User.client_secret == token).first()
+        if user is None:
+            raise HTTPException(status_code=404, detail="Recipe not found")
     return user
 
 
@@ -103,16 +105,16 @@ async def say_hello(token: str = Depends(get_current_token)):
     """
 
     # get the user object from the rel_database
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if user:
-        return {"message": f"Hello {user['user_name']}"}
+        return {"message": f"Hello {user.user_name}"}
     else:
         raise HTTPException(status_code=404, detail="User not found")
 
 
 @app.get("/get_first_recipes")
 async def get_first_recipes(token: str = Depends(get_current_token)):
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -160,7 +162,7 @@ async def homepage(token: str = Depends(get_current_token)):
     :return:  a message
     """
 
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -180,7 +182,7 @@ async def get_new_recommendation(request: Request, token: str = Depends(get_curr
 
     data = await request.json()
 
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -243,7 +245,7 @@ async def send_interaction(request: Request, token: str = Depends(get_current_to
     """
     data = await request.json()
 
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -302,7 +304,7 @@ async def set_diet(request: Request, token: str = Depends(get_current_token)):
 
     data = await request.json()
 
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -328,7 +330,7 @@ async def set_allergens(request: Request, token: str = Depends(get_current_token
 
     data = await request.json()
 
-    user = await get_user_by_token(token)
+    user = get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
