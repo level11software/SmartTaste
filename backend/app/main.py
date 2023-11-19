@@ -59,7 +59,6 @@ app.add_middleware(
 )
 
 
-
 async def get_user_by_token(token: str) -> User:
     """
     Get a user object by its token
@@ -146,20 +145,22 @@ def get_recommended_recipes(user: User):
         df_interactions = sqlToPandas(interactions)
 
     # for each row in df_interaction, add a new column rating with value depending on eventType ( if discarded, 0 otherwise)
-    
+
     df_interactions['rating'] = df_interactions.apply(
-        lambda row: 
-            0.0 if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
-            0.5 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
-            0.7 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
-            1.0 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
-            None,  # This can be adjusted if there are other event types or to handle unexpected values
+        lambda row:
+        0.0 if row['eventType'] == InteractionTypeEnum.DISCARDED_RECIPE else
+        0.5 if row['eventType'] == InteractionTypeEnum.OPENED_RECIPE else
+        0.7 if row['eventType'] == InteractionTypeEnum.SAVED_RECIPE else
+        1.0 if row['eventType'] == InteractionTypeEnum.BOUGHT_RECIPE else
+        None,  # This can be adjusted if there are other event types or to handle unexpected values
         axis=1
     )
 
-    top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1}, top_N=NUMBER_OF_MEALS)
+    top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1},
+                                        top_N=NUMBER_OF_MEALS)
 
     return top_recipes
+
 
 # def function that read a json and return a list of recipes
 def get_recipes_from_json():
@@ -301,3 +302,50 @@ def upload_recipes_to_db(recipes):
     return "Recipes uploaded"
 
 
+# new endpoint post /set_diet to set preference of user
+@app.post("/set_diet")
+async def set_diet(request: Request, token: str = Depends(get_current_token)):
+    """
+    Set the diet of the user
+    :param diet: the diet of the user
+    :param token: the token of the user
+    :return: a message
+    """
+
+    data = await request.json()
+
+    user = await get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if not data or data['selected_diet'] is None:
+        raise HTTPException(status_code=404, detail="Data not found")
+
+    with Session(engine) as session:
+        updated_user = session.query(User).filter_by(id=user.id).first()
+        updated_user.diet = data['selected_diet']
+        session.commit()
+
+    return "Diet set"
+
+@app.post("/set_allergens")
+async def set_allergens(request: Request, token: str = Depends(get_current_token)):
+    """
+    Set the diet of the user
+    :param diet: the diet of the user
+    :param token: the token of the user
+    :return: a message
+    """
+
+    data = await request.json()
+
+    user = await get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    with Session(engine) as session:
+        updated_user = session.query(User).filter_by(id=user.id).first()
+        updated_user.allergies = ', '.join(data)
+        session.commit()
+
+    return "Allergies set"
