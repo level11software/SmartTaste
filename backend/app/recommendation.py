@@ -91,6 +91,6 @@ def hybrid_recommendation(user_id, df_recipes, df_interactions, weights):
     # Sort by final score and return top recipes
     sorted_recipes = df_recipes_with_scores.sort_values(by='final_score', ascending=False)
 
-    print(sorted_recipes)
+    # print(sorted_recipes)
     #sorted_recipes.drop(columns=['final_score'], inplace=True)
     return sorted_recipes.reset_index()
