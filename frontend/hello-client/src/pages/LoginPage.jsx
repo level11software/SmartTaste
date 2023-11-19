@@ -13,8 +13,7 @@ function LoginPage() {
 
   return (
     <>
-      <h1>Login page</h1>
-      <p>TO DO</p>
+      <h1>Cookie set. You can start testing.</h1>
     </>
   );
 }
