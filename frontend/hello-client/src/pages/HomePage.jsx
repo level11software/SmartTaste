@@ -87,7 +87,7 @@ function HomePage() {
       payload
     );
 
-    if (newrecc == null) {
+    if (newrecc.length == 0) {
       setRecipesData(
         recipesData.filter((_, i) => {
           return i != index;
@@ -99,7 +99,7 @@ function HomePage() {
     setRecipesData(
       recipesData.map((item, i) => {
         if (i == index) {
-          return newrecc;
+          return newrecc[0];
         }
         return item;
       })
