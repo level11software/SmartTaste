@@ -33,7 +33,7 @@ Content-Type: application/json
 
 {
   "recipe_id": 1,
-  "event_type": "opened_recipe"
+  "event_type": "OPENED_RECIPE"
 }
 
 ###
