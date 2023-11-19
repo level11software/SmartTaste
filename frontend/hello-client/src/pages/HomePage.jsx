@@ -118,7 +118,7 @@ function HomePage() {
       </div>
       <div className="flex flex-col justify-center items-center mt-4">
         {/*A list of recipes*/}
-        <div className="grid grid-cols-2 grid-rows-2 gap-8">
+        <div className="grid grid-cols-2 grid-rows-2  gap-8">
           {recipesData.map((item) => (
             <Recipe
               key={item.id}
@@ -144,9 +144,11 @@ function HomePage() {
         <dialog id="modal_commit_buy" className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Purchase Summary</h3>
-            {recipesData.map((item) => (
-              <p className="py-4">{item.name}</p>
-            ))}
+            <ul className="ml-5 list-disc">
+              {recipesData.map((item) => (
+                <li className="py-4">{item.name}</li>
+              ))}
+            </ul>
 
             <div className="modal-action ">
               <form method="dialog">

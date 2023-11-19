@@ -28,7 +28,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
     tags_list,
     nutrition,
     allergens,
-    ingredient_list,
+    ingredients_list,
     id,
   } = recipe;
 
@@ -37,7 +37,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
   return (
     <div>
       <motion.div
-        className="card card-compact w-72 bg-base-100 shadow-xl"
+        className="card card-compact w-72 bg-base-100 h-full shadow-xl"
         whileHover={{
           scale: 1.05,
           transition: { duration: 0.2 },
@@ -51,12 +51,12 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
         <div className="card-body">
           <h2 className="card-title">{name}</h2>
           <div className="flex flex-row">
-            <span>
+            <span className="">
               Cal:
               <div className="badge badge-info ml-2">{nutrition.calories}</div>
             </span>
 
-            <span className="ml-4">
+            <span className=" ml-4">
               Protein:
               <div className="badge badge-error ml-2">
                 {" "}
@@ -84,7 +84,7 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
           </div>
         </div>
         <div className="flex flex-row justify-between">
-          <div className="ml-4"></div>
+          <div className="ml-6 mt-2 font-light text-sm">{preptime}m</div>
           <div className="card-actions justify-end mr-8 mb-3">
             <button
               className="btn btn-sm btn-circle btn-outline"
@@ -153,10 +153,31 @@ const Recipe = ({ recipe, removal, saveAction, openDetail }) => {
       </motion.div>
       <dialog id={`more_info_${id}`} className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">{name}</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
+          <h3 className="font-bold text-xl">{name}</h3>
+          <div className="flex flex-row justify-around">
+            <div className="flex flex-col">
+              <h4 className="text-lg bg-primary my-3 p-2 rounded-lg">
+                Allergens
+              </h4>
+              <ul className=" list-disc">
+                {allergens.split(", ").map((alle) => {
+                  return <li>{alle}</li>;
+                })}
+              </ul>
+            </div>
+
+            <div className="flex flex-col">
+              <h4 className="text-lg bg-primary my-3 p-2 rounded-lg">
+                Ingredients
+              </h4>
+              <ul className=" list-disc">
+                {ingredients_list.split(", ").map((ingr) => {
+                  return <li>{ingr}</li>;
+                })}
+              </ul>
+            </div>
+          </div>
+
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
