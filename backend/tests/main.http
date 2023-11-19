@@ -37,5 +37,12 @@ Content-Type: application/json
 }
 
 ###
+POST http://127.0.0.1:8000/get_new_recommendation/
+Accept: application/json
+Authorization: Bearer cicciogamer89
+Content-Type: application/json
 
+{
+  "recipes_to_exclude": [1,2,3,7,8]
+}
 ###

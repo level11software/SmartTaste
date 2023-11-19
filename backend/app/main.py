@@ -130,18 +130,27 @@ async def homepage(token: str = Depends(get_current_token)):
 
 # def internal function that return the recipes most recommended for the user
 @app.post("/get_new_recommendation")
-async def get_new_recommendation(token: str = Depends(get_current_token)):
+async def get_new_recommendation(request: Request, token: str = Depends(get_current_token)):
     """
     The homepage endpoint, only accessible with a valid token
     :param token: the token of the user
     :return:  a message
     """
 
+    data = await request.json()
+
     user = await get_user_by_token(token)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    json_data = get_recommended_recipes(user, 1, [0, 1, 2]).to_json(orient='records', indent=4)
+    if not data or data['recipes_to_exclude'] is None:
+        raise HTTPException(status_code=404, detail="Data not found")
+
+    recipes_to_exclude = []
+    for recipe in data['recipes_to_exclude']:
+        recipes_to_exclude.append(int(recipe))
+
+    json_data = get_recommended_recipes(user, 1, recipes_to_exclude).to_json(orient='records', indent=4)
 
     return Response(content=json_data, media_type="application/json")
 
@@ -153,8 +162,6 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
     :param user: the user object
     :return: a list of four recipes
     """
-
-    # TODO REAL CODE
 
     with Session(engine) as session:
         recipes = session.query(Recipe).all()
@@ -175,9 +182,11 @@ def get_recommended_recipes(user: User, N_recipes=NUMBER_OF_MEALS, exclude_ids=[
     )
 
     top_recipes = hybrid_recommendation(user.id, df_recipes, df_interactions, {'collab': 1, 'content': 1, 'type': 1},
-                                        top_N=N_recipes)
+                                        top_N=(N_recipes+len(exclude_ids)))
 
-    return top_recipes
+    # remove recipes already in the cart
+    top_recipes = top_recipes[~top_recipes['id'].isin(exclude_ids)]
+    return top_recipes.head(N_recipes)
 
 
 @app.post("/send_interaction")
