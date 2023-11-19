@@ -1,9 +1,9 @@
 export const backend_url =
   "https://7226-2a09-80c0-192-0-82a1-c251-39dd-5047.ngrok-free.app";
 
-export const OPENED_RECIPE = "opened_recipe";
-export const BOUGHT_RECIPE = "bought_recipe";
-export const DISCARDED_RECIPE = "discarded_recipe";
+export const OPENED_RECIPE = "OPENED_RECIPE";
+export const BOUGHT_RECIPE = "BOUGHT_RECIPE";
+export const DISCARDED_RECIPE = "DISCARDED_RECIPE";
 
 export async function verifiedGET(endpoint, authToken) {
   const url = `${backend_url}/${endpoint}`;
@@ -24,6 +24,27 @@ export async function verifiedGET(endpoint, authToken) {
   const data = await res.json();
   console.log(data);
   return data;
+}
+
+export async function verifiedPOST(endpoint, authToken, payload) {
+  const url = `${backend_url}/${endpoint}`;
+
+  // Use fetch to retrieve the scan status
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "ngrok-skip-browser-warning": "true",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  const content = await res.json();
+  return content[0];
 }
 
 export async function registerAction(authToken, type, id) {
