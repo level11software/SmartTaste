@@ -327,8 +327,6 @@ async def set_allergens(request: Request, token: str = Depends(get_current_token
 
 
 def filter_recipes(df_recipes, diet: DietEnum, allergies: str):
-    print(diet, allergies)
-
     # Filter by dietary preferences
     if diet == DietEnum.VEGAN:
         df_recipes = df_recipes[df_recipes['tags_list'].str.contains('Vegan')]
@@ -343,5 +341,4 @@ def filter_recipes(df_recipes, diet: DietEnum, allergies: str):
         for allergen in allergies:
             df_recipes = df_recipes[~df_recipes['allergens'].str.contains(allergen)]
 
-    print(df_recipes)
     return df_recipes
