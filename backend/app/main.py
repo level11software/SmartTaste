@@ -211,7 +211,15 @@ async def send_interaction(request: Request, token: str = Depends(get_current_to
         if recipe is None:
             raise HTTPException(status_code=404, detail="Recipe not found")
 
-    add_interaction_to_db(recipe, user, data['event_type'])
+    with Session(engine) as session:
+        interaction = session.query(Interaction).filter(Interaction.userID == user.id,
+                                                        Interaction.recipeID == recipe.id).first()
+        if interaction is not None:
+            interaction.eventType = data['event_type']
+            interaction.time = str(datetime.datetime.now())
+            session.commit()
+        else:
+            add_interaction_to_db(recipe, user, data['event_type'])
 
     return "Interaction stored"
 
