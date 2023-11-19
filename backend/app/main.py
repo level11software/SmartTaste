@@ -162,33 +162,6 @@ def get_recommended_recipes(user: User):
     return top_recipes
 
 
-# def function that read a json and return a list of recipes
-def get_recipes_from_json():
-    """
-    Get a list of recipes from a json
-    :param json: the json
-    :return: a list of recipes
-    """
-
-    file_path = "recipes.json"
-    try:
-        with open(file_path, 'r') as json_file:
-            data = json.load(json_file)
-            index = 0
-            recipes = []
-            while len(recipes) < NUMBER_OF_MEALS:
-                if random.random() < 0.5:
-                    recipes.append(data[index])
-                index += 1
-            return recipes
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError as e:
-        return f"Error decoding JSON: {str(e)}"
-    except Exception as e:
-        return f"An error occurred: {str(e)}"
-
-
 @app.post("/send_interaction")
 async def send_interaction(request: Request, token: str = Depends(get_current_token)):
     """
@@ -243,73 +216,6 @@ def add_interaction_to_db(recipe, user, event_type):
     return
 
 
-@app.get("/upload_recipes")
-async def upload_recipes(token: str = Depends(get_current_token)):
-    """
-    Upload recipes to the database
-    :param token: the token of the user
-    :return: a message
-    """
-    # TODO REAL CODE
-    recipes = get_recipes_from_json()
-    return upload_recipes_to_db(recipes)
-
-
-def upload_recipes_to_db(recipes):
-    """
-    Upload recipes to the database
-    :param recipes: a list of recipes
-    :return: a message
-    """
-    # TODO REAL CODE
-    for element in recipes:
-        recipe = element['recipe']
-        print(recipe)
-
-        with Session(engine) as session:
-            new_recipe_object = Recipe(
-                uuid=recipe['id'],
-                name=recipe['name'],
-                preptime=recipe['prepTime'],
-                image_link=recipe['image'],
-                recipe_link=recipe['websiteURL'],
-                headline=recipe['headline'],
-                nutrition_energy=recipe['nutrition']['energy'],
-                nutrition_calories=recipe['nutrition']['calories'],
-                nutrition_carbo=recipe['nutrition']['carbohydrate'],
-                nutrition_protein=recipe['nutrition']['protein']
-            )
-
-            stored_tags = session.query(Tag).all()
-
-            loaded_tags = recipe['tags']
-            for loaded_tag in loaded_tags:
-                found = False
-                for stored_tag in stored_tags:
-                    if loaded_tag['name'] == stored_tag.name:
-                        found = True
-                        break
-
-                if not found:
-                    new_tag_object = Tag(name=loaded_tag['name'])
-                    session.add(new_tag_object)
-                    session.commit()
-                    stored_tags.append(new_tag_object)
-
-            stored_tags = session.query(Tag).all()
-
-            for loaded_tag in loaded_tags:
-                for stored_tag in stored_tags:
-                    if loaded_tag['name'] == stored_tag.name:
-                        new_recipe_object.tags.append(stored_tag)
-                        break
-
-            session.add(new_recipe_object)
-            session.commit()
-
-    return "Recipes uploaded"
-
-
 # new endpoint post /set_diet to set preference of user
 @app.post("/set_diet")
 async def set_diet(request: Request, token: str = Depends(get_current_token)):
@@ -335,6 +241,7 @@ async def set_diet(request: Request, token: str = Depends(get_current_token)):
         session.commit()
 
     return "Diet set"
+
 
 @app.post("/set_allergens")
 async def set_allergens(request: Request, token: str = Depends(get_current_token)):
