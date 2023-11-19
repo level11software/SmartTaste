@@ -126,7 +126,7 @@ function HomePage() {
 
                     <div className="p-4 pt-4">
                         <h1 className="text-2xl font-bold">
-                            What are you eating this week?
+                            Hi there! Can we help you find something delicious?
                         </h1>
                         <div className="divider divider-primary text-xs"> Remove unwanted recipes</div>
                     </div>

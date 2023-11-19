@@ -76,17 +76,24 @@ const CarouselQuiz = ({onContinue}) => {
             <div className="flex flex-col h-screen justify-between p-5 w-2/5">
 
                 <div className="p-4 pt-4">
-                    <h1 className="text-2xl font-bold">What describes you?</h1>
-                    <div className="divider divider-primary text-xs">Slides through recipes that represent your taste
+                    <h1 className="text-2xl font-bold">Culinary Reflections</h1>
+                    <div className="divider divider-primary text-xs">Showcase your palate's personality
                     </div>
                 </div>
+
+
 
                 <div className="flex justify-center gap-8 p-5">
                     {carouselItems.map((_, index) => renderCarousel(index))}
                 </div>
 
+                <div role="alert" className="alert opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className=" stroke-info shrink-0 w-6 h-6"><path  strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span className={"text-xs"}>Scroll and select three dishes that best represent your taste. Below, pick four emojis that resonate with your preferences. Spicy vs. Mild, Fast vs. Slow to cook [...] </span>
+                </div>
+
                 <div className={"flex flex-col justify-center items-center"}>
-                    <div className={"p-5 divider divider-base-300 text-xs italic thin"}>4 emojis that represents you well:</div>
+                    <div className={"p-5 divider divider-base-300 text-xs italic thin"}>and 4 emojis that represents you well? </div>
                     <div className={"flex flex-row justify-center items-center gap-16"}>
                         <label className="swap swap-flip text-6xl">
                             {/* this hidden checkbox controls the state */}

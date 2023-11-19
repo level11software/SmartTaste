@@ -75,9 +75,9 @@ const AllergensQuiz = ({onContinue}) => {
             <div className="flex flex-col h-screen justify-between p-5 w-2/5">
                 <div className="p-4 pt-4">
                     <h1 className="text-2xl font-bold">
-                        What you're <span className="text-accent">NOT</span> gonna eat
+                        Off the menu. What you're <span className="text-accent">NOT</span> gonna eat.
                     </h1>
-                    <div className="divider divider-accent text-xs"> We don't wanna kill you somehow..</div>
+                    <div className="divider divider-accent text-xs"> We don't wanna kill you by accident 🙃..</div>
                 </div>
 
                 <div className="p-4 flex justify-center">
