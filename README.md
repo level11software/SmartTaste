@@ -48,4 +48,4 @@ This project was made possible by the dedicated efforts of Level11 and Fabio. Sp
 
 ## Additional Information
 
-For more details about the hackathon and our project, check out our submission on DevPost: [https://devpost.com/software/level11]
+For more details about the hackathon and our project, check out our submission on DevPost: https://devpost.com/software/level11
