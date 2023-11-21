@@ -1,4 +1,4 @@
-export const backend_url = "https://7226-2a09-80c0-192-0-82a1-c251-39dd-5047.ngrok-free.app";
+export const backend_url = "http://localhost:8000";
 
 export const OPENED_RECIPE = "OPENED_RECIPE";
 export const BOUGHT_RECIPE = "BOUGHT_RECIPE";
