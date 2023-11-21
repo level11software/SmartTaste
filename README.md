@@ -29,13 +29,13 @@ SmartTaste is an innovative app developed during HackaTUM, aiming to revolutioni
 
 Below are some glimpses of SmartTaste in action:
 
-<img src="media/screenshot1.png" width="50%" />
-<img src="media/screenshot2.png" width="50%" />
-<img src="media/screenshot3.png" width="50%" />
-<img src="media/screenshot4.png" width="50%" />
-<img src="media/screenshot5.png" width="50%" />
-<img src="media/SmartTasteUI.gif" width="50%" />
-<img src="media/SmartTasteAIv2.gif" width="50%" />
+<img src="media/screenshot1.png" width="80%" />
+<img src="media/screenshot2.png" width="80%" />
+<img src="media/screenshot3.png" width="80%" />
+<img src="media/screenshot4.png" width="80%" />
+<img src="media/screenshot5.png" width="80%" />
+<img src="media/SmartTasteUI.gif" width="80%" />
+<img src="media/SmartTasteAIv2.gif" width="80%" />
 
 ## Getting Started
 
