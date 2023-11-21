@@ -23,18 +23,19 @@ SmartTaste is an innovative app developed during HackaTUM, aiming to revolutioni
 1. **Hybrid Recommender System**: Combines user preferences and collaborative data to suggest the perfect meals.
 2. **Gamified User Onboarding**: Simplifies the initial interaction while collecting valuable data for the recommendation algorithm.
 3. **Accessibility Support**: Ensures an inclusive experience for users with visual impairments through advanced speech technologies.
-4. **[Other Features]**: [Describe any other significant features of the app]
+<!-- 4. **[Other Features]**: [Describe any other significant features of the app] -->
 
 ## Screenshots and GIFs
 
 Below are some glimpses of SmartTaste in action:
 
-![Screenshot 1](media/screenshot1.png)
-![Screenshot 2](media/screenshot2.png)
-![Screenshot 3](media/screenshot3.png)
-![Screenshot 4](media/screenshot4.png)
-![GIF 1](media/demo1.gif)
-![GIF 2](media/demo2.gif)
+<img src="media/screenshot1.png" width="50%" />
+<img src="media/screenshot2.png" width="50%" />
+<img src="media/screenshot3.png" width="50%" />
+<img src="media/screenshot4.png" width="50%" />
+<img src="media/screenshot5.png" width="50%" />
+<img src="media/SmartTasteUI.gif" width="50%" />
+<img src="media/SmartTasteAIv2.gif" width="50%" />
 
 ## Getting Started
 
