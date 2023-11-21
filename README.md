@@ -1,6 +1,6 @@
 # SmartTaste
 
-SmartTaste is an innovative app developed during ![HackaTUM](https://hack.tum.de/), aiming to revolutionize the meal recommendation experience for Hello Fresh users. By leveraging a hybrid recommendation system, SmartTaste offers personalized meal suggestions based on user preferences, learned dynamically through user interactions.
+SmartTaste is an innovative app developed during [HackaTUM](https://hack.tum.de/), aiming to revolutionize the meal recommendation experience for Hello Fresh users. By leveraging a hybrid recommendation system, SmartTaste offers personalized meal suggestions based on user preferences, learned dynamically through user interactions.
 
 ## Technologies Used
 
