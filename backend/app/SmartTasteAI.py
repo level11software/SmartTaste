@@ -4,12 +4,9 @@ from openai import OpenAI
 
 # CONFIG AND ENV VARIABLES
 
-client = OpenAI()
+recipe_list = "Steak Met Potatoes, Hearty Steak and Potatoes, Mozzarella-Crusted Chicken, Winner Winner Chicken Orzo Dinner, Rapid Stir-Fried Beef, Ginger Beef Stir-Fry, Creamy Shrimp Tagliatelle, Balsamic Chicken Rustico, Korean Beef Bibimbap, Lemony Shrimp Risotto, Parmesan-Crusted Cod, Melty Monterey Jack Burger, Meatloaf Balsamico, Perfect Penne Bake, Creamy Dill Chicken, Shrimp and Zucchini Ribbons, Rapid Butternut Squash Agnolotti, Sweet Potato and Black Bean Tacos, Sweet-As-Honey Chicken, Teriyaki Salmon, Jammy Fig and Brie Grilled Cheese, Coconut Chicken Curry, Vegan Spicy Lemon Maple Tofu, Patatas Bravas and Crispy Artichokes."
 
-recipes_file = client.files.create(
-    file=open("../recipes_openai.csv", "rb"),
-    purpose='assistants'
-)
+client = OpenAI()
 
 assistant = client.beta.assistants.create(
     name="SmartTasteAI",
@@ -18,50 +15,107 @@ assistant = client.beta.assistants.create(
     model="gpt-4-1106-preview",
 )
 
-thread = client.beta.threads.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Here's the list of available recipes:"
-        },
-{
-            "role": "user",
-            "content": "Steak Met Potatoes, Hearty Steak and Potatoes, Mozzarella-Crusted Chicken, Winner Winner Chicken Orzo Dinner, Rapid Stir-Fried Beef, Ginger Beef Stir-Fry, Creamy Shrimp Tagliatelle, Balsamic Chicken Rustico, Korean Beef Bibimbap, Lemony Shrimp Risotto, Parmesan-Crusted Cod, Melty Monterey Jack Burger, Meatloaf Balsamico, Perfect Penne Bake, Creamy Dill Chicken, Shrimp and Zucchini Ribbons, Rapid Butternut Squash Agnolotti, Sweet Potato and Black Bean Tacos, Sweet-As-Honey Chicken, Teriyaki Salmon, Jammy Fig and Brie Grilled Cheese, Coconut Chicken Curry, Vegan Spicy Lemon Maple Tofu, Patatas Bravas and Crispy Artichokes."
-        },
-        {
-            "role": "user",
-            "content": "Hi, I am a new customer. I am looking for a recipe for tonight. I am not a great cook, so I would like something easy to prepare. I am not a vegetarian, but I don't eat meat every day. I like spicy food, but not too much. I don't like fish. I like traditional food, but I am open to new experiences. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food. I don't like to spend too much time in the kitchen. I don't like to spend too much money on food."
-        }
-    ]
-)
 
-run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id
-)
-
-run_terminated = False
-run_retrieved = None
-
-while not run_terminated:
-    run_retrieved = client.beta.threads.runs.retrieve(
-        thread_id=thread.id,
-        run_id=run.id
+def create_new_thread(recipes_list_string, user_message):
+    new_thread = client.beta.threads.create(
+        messages=[
+            {
+                "role": "user",
+                "content": "Here's the list of available recipes:"
+            },
+            {
+                "role": "user",
+                "content": recipes_list_string
+            },
+            {
+                "role": "user",
+                "content": str("And here's the message from the user: '" + user_message + "'")[:512]
+            }
+        ]
     )
 
-    if run_retrieved.status == 'completed':
-        run_terminated = True
-        print("Run completed")
-    else:
-        #         wait 1 second before checking again
-        time.sleep(1)
+    return new_thread
 
-print(run_retrieved.id)
 
-# thread_id = 'thread_zNermBVaFUwMCH3YM5yjWsfj'
-# assistant_id = 'asst_1fTgApVGh02i4As7eFM0C2tA'
-# run_id = 'run_M90Pqnjf4tqpfOnedHMb07yi'
+def run_thread(thread_id, assistant_id):
+    new_run = client.beta.threads.runs.create(
+        thread_id=thread_id,
+        assistant_id=assistant_id
+    )
 
-thread_messages = client.beta.threads.messages.list(thread.id)
+    return new_run
 
-print(thread_messages['data'][0]['content'])
+
+if __name__ == '__main__':
+    print("Write your message to SmartTasteAI")
+    user_first_message = str(input())
+
+    thread = create_new_thread(recipe_list, user_first_message)
+    print("Thread ID: " + thread.id)
+
+    run = run_thread(thread.id, assistant.id)
+    print("Run ID: " + run.id)
+
+    run_terminated = False
+    run_retrieved = None
+
+    while not run_terminated:
+        run_retrieved = client.beta.threads.runs.retrieve(
+            thread_id=thread.id,
+            run_id=run.id
+        )
+
+        if run_retrieved.status == 'completed':
+            run_terminated = True
+            print("Run completed")
+        else:
+            #         wait 1 second before checking again
+            time.sleep(4)
+
+    print(run_retrieved.id)
+
+    # thread_id = 'thread_zNermBVaFUwMCH3YM5yjWsfj'
+    # assistant_id = 'asst_1fTgApVGh02i4As7eFM0C2tA'
+    # run_id = 'run_M90Pqnjf4tqpfOnedHMb07yi'
+
+    thread_messages = client.beta.threads.messages.list(thread.id)
+
+    print(thread_messages.data[0].content[0].text.value)
+
+    exit_command = False
+
+    while not exit_command:
+        user_new_message = str(input())
+
+        if user_new_message == 'exit':
+            exit_command = True
+        else:
+            new_message = client.beta.threads.messages.create(
+                thread_id=thread.id,
+                role="user",
+                content=user_new_message[:512],
+            )
+
+            run = run_thread(thread.id, assistant.id)
+            print("Run ID: " + run.id)
+
+            run_terminated = False
+            run_retrieved = None
+
+            while not run_terminated:
+                run_retrieved = client.beta.threads.runs.retrieve(
+                    thread_id=thread.id,
+                    run_id=run.id
+                )
+
+                if run_retrieved.status == 'completed':
+                    run_terminated = True
+                    print("Run completed")
+                else:
+                    #         wait 1 second before checking again
+                    time.sleep(1)
+
+            print(run_retrieved.id)
+
+            thread_messages = client.beta.threads.messages.list(thread.id)
+            print(thread_messages.data[0].content[0].text.value)
